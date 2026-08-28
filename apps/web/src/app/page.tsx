@@ -130,7 +130,7 @@ export default function Home() {
           <motion.h1
             variants={fadeUp}
             className="text-5xl md:text-7xl lg:text-[80px] font-extrabold tracking-tight leading-[1.1] mb-8 text-white"
-            style={{ textShadow: "0 0 60px rgba(255,255,255,0.3), 0 4px 40px rgba(0,0,0,0.9)" }}
+            style={{ textShadow: "0 0 80px rgba(255,255,255,0.4), 0 0 120px rgba(6,182,212,0.2), 0 4px 40px rgba(0,0,0,0.9)" }}
           >
             Your AI.
             <br />
