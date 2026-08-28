@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <!-- Black background - white A. logo -->
+  <rect width="48" height="48" fill="#000000"/>
+  <g transform="translate(8, 6)">
+    <!-- A shape -->
+    <polygon points="10,0 24,0 36,36 26,36 20,18 14,18 8,36 -2,36" fill="white"/>
+    <!-- Inner cutout -->
+    <polygon points="16,8 22,18 10,18" fill="#000000"/>
+    <!-- Right leg -->
+    <rect x="26" y="14" width="5" height="22" fill="white"/>
+    <!-- Period -->
+    <rect x="33" y="30" width="4" height="4" fill="white"/>
+  </g>
+</svg>
