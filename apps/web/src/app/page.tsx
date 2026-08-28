@@ -129,20 +129,20 @@ export default function Home() {
 
           <motion.h1
             variants={fadeUp}
-            className="text-5xl md:text-7xl lg:text-[88px] font-bold tracking-tight leading-[1.05] mb-8"
-            style={{ textShadow: "0 2px 40px rgba(0,0,0,0.8), 0 4px 80px rgba(0,0,0,0.6)" }}
+            className="text-6xl md:text-8xl lg:text-[96px] font-extrabold tracking-tight leading-[1.05] mb-8 text-white"
+            style={{ textShadow: "0 0 60px rgba(255,255,255,0.3), 0 4px 40px rgba(0,0,0,0.9)" }}
           >
-            <span className="text-white">Your AI.</span>
+            Your AI.
             <br />
-            <span className="text-white">Your Rules.</span>
+            Your Rules.
             <br />
             <span className="gradient-text">Verified On-Chain.</span>
           </motion.h1>
 
           <motion.p
             variants={fadeUp}
-            className="text-lg md:text-xl text-[#c8d6e5] max-w-2xl mx-auto mb-12 leading-relaxed"
-            style={{ textShadow: "0 1px 20px rgba(0,0,0,0.8)" }}
+            className="text-lg md:text-xl text-[#e2e8f0] max-w-2xl mx-auto mb-12 leading-relaxed"
+            style={{ textShadow: "0 2px 30px rgba(0,0,0,0.9)" }}
           >
             Aegis is an autonomous AI agent that manages your DeFi portfolio and
             proves every decision on-chain. No black boxes. No blind trust.
