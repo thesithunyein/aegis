@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+const baseUrl = "https://aegis.sithunyein.com";
+
 export const metadata: Metadata = {
   title: "Aegis — Autonomous Intelligence, Verified On-Chain",
   description:
@@ -14,11 +16,12 @@ export const metadata: Metadata = {
     "portfolio management",
     "autonomous agent",
   ],
+  metadataBase: new URL(baseUrl),
   openGraph: {
     title: "Aegis — Autonomous Intelligence, Verified On-Chain",
     description:
       "AI that manages your DeFi portfolio and proves every decision on-chain.",
-    url: "https://aegis.sithunyein.com",
+    url: baseUrl,
     siteName: "Aegis",
     images: [
       {

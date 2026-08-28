@@ -11,11 +11,14 @@ import {
   Zap,
   Lock,
   Eye,
+  TrendingUp,
+  Code2,
+  Globe,
 } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
 
 const stagger = {
@@ -28,19 +31,17 @@ const stagger = {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-aegis-black">
+    <div className="min-h-screen bg-aegis-black selection:bg-aegis-blue/30">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-aegis-black/80 backdrop-blur-sm border-b border-aegis-border">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-aegis-black/80 backdrop-blur-xl border-b border-aegis-border">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img
-              src="/logos/aegis-logo-transparent.png"
-              alt="Aegis"
-              className="h-8 w-8"
-            />
+          <a href="/" className="flex items-center gap-3 group">
+            <div className="w-8 h-8 flex items-center justify-center bg-aegis-white">
+              <span className="text-aegis-black font-bold text-sm">A.</span>
+            </div>
             <span className="text-lg font-semibold tracking-tight">Aegis</span>
-          </div>
-          <div className="flex items-center gap-6">
+          </a>
+          <div className="hidden md:flex items-center gap-8">
             <a
               href="#how-it-works"
               className="text-sm text-aegis-muted hover:text-aegis-white transition-colors"
@@ -53,20 +54,30 @@ export default function Home() {
             >
               Features
             </a>
-            <button className="px-5 py-2.5 bg-aegis-white text-aegis-black text-sm font-semibold hover:bg-aegis-white/90 transition-all">
-              Launch App
-            </button>
+            <a
+              href="#built-on-0g"
+              className="text-sm text-aegis-muted hover:text-aegis-white transition-colors"
+            >
+              Built on 0G
+            </a>
           </div>
+          <a
+            href="/dashboard"
+            className="px-5 py-2.5 bg-aegis-white text-aegis-black text-sm font-semibold hover:bg-aegis-white/90 transition-all"
+          >
+            Launch App
+          </a>
         </div>
       </nav>
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 px-6 overflow-hidden">
         {/* Grid pattern background */}
-        <div className="absolute inset-0 grid-pattern opacity-50" />
+        <div className="absolute inset-0 grid-pattern opacity-40" />
 
-        {/* Gradient overlay */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-aegis-blue/5 blur-[120px] rounded-full" />
+        {/* Gradient orbs */}
+        <div className="absolute top-20 left-1/4 w-[500px] h-[500px] bg-aegis-blue/5 blur-[150px] rounded-full" />
+        <div className="absolute top-40 right-1/4 w-[400px] h-[400px] bg-aegis-green/5 blur-[120px] rounded-full" />
 
         <motion.div
           initial="hidden"
@@ -74,7 +85,7 @@ export default function Home() {
           variants={stagger}
           className="relative max-w-4xl mx-auto text-center"
         >
-          <motion.div variants={fadeUp} className="mb-6">
+          <motion.div variants={fadeUp} className="mb-8">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-aegis-card border border-aegis-border text-xs font-medium text-aegis-muted uppercase tracking-wider">
               <span className="status-dot status-online" />
               Live on 0G Testnet
@@ -83,9 +94,10 @@ export default function Home() {
 
           <motion.h1
             variants={fadeUp}
-            className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] mb-6"
+            className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.05] mb-8"
           >
-            Your AI.{" "}
+            Your AI.
+            <br />
             <span className="gradient-text">Your Rules.</span>
             <br />
             Verified On-Chain.
@@ -93,7 +105,7 @@ export default function Home() {
 
           <motion.p
             variants={fadeUp}
-            className="text-lg md:text-xl text-aegis-muted max-w-2xl mx-auto mb-10 leading-relaxed"
+            className="text-lg md:text-xl text-aegis-muted max-w-2xl mx-auto mb-12 leading-relaxed"
           >
             Aegis is an autonomous AI agent that manages your DeFi portfolio and
             proves every decision on-chain. No black boxes. No blind trust.
@@ -102,21 +114,27 @@ export default function Home() {
 
           <motion.div
             variants={fadeUp}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
           >
-            <button className="group flex items-center gap-2 px-8 py-4 bg-aegis-white text-aegis-black text-base font-semibold hover:bg-aegis-white/90 transition-all">
+            <a
+              href="/dashboard"
+              className="group flex items-center gap-2 px-8 py-4 bg-aegis-white text-aegis-black text-base font-semibold hover:bg-aegis-white/90 transition-all"
+            >
               Launch Agent
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button className="flex items-center gap-2 px-8 py-4 border border-aegis-border text-aegis-white text-base font-medium hover:border-aegis-border-hover transition-all">
-              View Documentation
-            </button>
+            </a>
+            <a
+              href="#how-it-works"
+              className="flex items-center gap-2 px-8 py-4 border border-aegis-border text-aegis-white text-base font-medium hover:border-aegis-border-hover transition-all"
+            >
+              Learn More
+            </a>
           </motion.div>
 
           {/* Trust indicators */}
           <motion.div
             variants={fadeUp}
-            className="mt-16 flex items-center justify-center gap-8 text-xs text-aegis-dim uppercase tracking-wider"
+            className="flex flex-wrap items-center justify-center gap-6 md:gap-10 text-xs text-aegis-dim uppercase tracking-wider"
           >
             <span className="flex items-center gap-2">
               <Shield className="w-4 h-4" />
@@ -130,6 +148,10 @@ export default function Home() {
               <Link2 className="w-4 h-4" />
               On-Chain Settlement
             </span>
+            <span className="flex items-center gap-2">
+              <Code2 className="w-4 h-4" />
+              Open Source
+            </span>
           </motion.div>
         </motion.div>
       </section>
@@ -140,19 +162,25 @@ export default function Home() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
+            <motion.span
+              variants={fadeUp}
+              className="text-xs font-mono text-aegis-blue uppercase tracking-widest mb-4 block"
+            >
+              Process
+            </motion.span>
             <motion.h2
               variants={fadeUp}
-              className="text-3xl md:text-4xl font-bold tracking-tight mb-4"
+              className="text-3xl md:text-5xl font-bold tracking-tight mb-6"
             >
               How It Works
             </motion.h2>
             <motion.p
               variants={fadeUp}
-              className="text-aegis-muted max-w-xl mx-auto"
+              className="text-aegis-muted max-w-xl mx-auto text-lg"
             >
               Three steps to autonomous, verifiable DeFi management.
             </motion.p>
@@ -161,7 +189,7 @@ export default function Home() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
             className="grid md:grid-cols-3 gap-0"
           >
@@ -172,6 +200,7 @@ export default function Home() {
                 description:
                   "Link your wallet and set your rules. Max position size, risk tolerance, allowed tokens. You stay in control.",
                 icon: Lock,
+                accent: "blue",
               },
               {
                 step: "02",
@@ -179,6 +208,7 @@ export default function Home() {
                 description:
                   "Aegis runs verifiable inference on 0G Compute. Every reasoning step stored on 0G Storage. No black boxes.",
                 icon: Brain,
+                accent: "blue",
               },
               {
                 step: "03",
@@ -186,23 +216,35 @@ export default function Home() {
                 description:
                   "Proposed actions settle on 0G Chain. Every decision logged immutably. TEE attestation proves it was real.",
                 icon: CheckCircle2,
+                accent: "green",
               },
-            ].map((item) => (
+            ].map((item, i) => (
               <motion.div
                 key={item.step}
                 variants={fadeUp}
-                className="p-8 border border-aegis-border bg-aegis-card card-hover"
+                className="relative p-8 border border-aegis-border bg-aegis-card card-hover group"
               >
-                <div className="flex items-center gap-3 mb-6">
-                  <span className="text-xs font-mono text-aegis-blue">
+                {/* Step number */}
+                <div className="flex items-center gap-3 mb-8">
+                  <span className="text-2xl font-bold font-mono text-aegis-border group-hover:text-aegis-blue transition-colors">
                     {item.step}
                   </span>
-                  <div className="flex-1 h-px bg-aegis-border" />
+                  <div className="flex-1 h-px bg-aegis-border group-hover:bg-aegis-blue/30 transition-colors" />
                 </div>
-                <div className="w-10 h-10 flex items-center justify-center bg-aegis-surface border border-aegis-border mb-4">
-                  <item.icon className="w-5 h-5 text-aegis-white" />
+
+                {/* Icon */}
+                <div className={`w-12 h-12 flex items-center justify-center border mb-6 transition-colors ${
+                  item.accent === "green"
+                    ? "bg-aegis-green/10 border-aegis-green/20"
+                    : "bg-aegis-blue/10 border-aegis-blue/20"
+                }`}>
+                  <item.icon className={`w-6 h-6 ${
+                    item.accent === "green" ? "text-aegis-green" : "text-aegis-blue"
+                  }`} />
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+
+                {/* Content */}
+                <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
                 <p className="text-sm text-aegis-muted leading-relaxed">
                   {item.description}
                 </p>
@@ -213,24 +255,30 @@ export default function Home() {
       </section>
 
       {/* Features */}
-      <section id="features" className="py-24 px-6 border-t border-aegis-border">
+      <section id="features" className="py-24 px-6 border-t border-aegis-border bg-aegis-surface">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
+            <motion.span
+              variants={fadeUp}
+              className="text-xs font-mono text-aegis-blue uppercase tracking-widest mb-4 block"
+            >
+              Capabilities
+            </motion.span>
             <motion.h2
               variants={fadeUp}
-              className="text-3xl md:text-4xl font-bold tracking-tight mb-4"
+              className="text-3xl md:text-5xl font-bold tracking-tight mb-6"
             >
               Built on 0G
             </motion.h2>
             <motion.p
               variants={fadeUp}
-              className="text-aegis-muted max-w-xl mx-auto"
+              className="text-aegis-muted max-w-xl mx-auto text-lg"
             >
               Every layer of the 0G stack, working together for verifiable AI.
             </motion.p>
@@ -239,7 +287,7 @@ export default function Home() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
             className="grid md:grid-cols-2 gap-0"
           >
@@ -283,11 +331,11 @@ export default function Home() {
                 className="p-8 border border-aegis-border bg-aegis-card card-hover"
               >
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 flex items-center justify-center bg-aegis-surface border border-aegis-border">
-                    <item.icon className="w-5 h-5 text-aegis-white" />
+                  <div className="w-12 h-12 flex items-center justify-center bg-aegis-surface border border-aegis-border">
+                    <item.icon className="w-6 h-6 text-aegis-white" />
                   </div>
                   <span
-                    className={`text-xs font-mono px-3 py-1 ${
+                    className={`text-xs font-mono px-3 py-1.5 ${
                       item.color === "green"
                         ? "text-aegis-green bg-aegis-green/10 border border-aegis-green/20"
                         : "text-aegis-blue bg-aegis-blue/10 border border-aegis-blue/20"
@@ -296,7 +344,7 @@ export default function Home() {
                     {item.tag}
                   </span>
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+                <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
                 <p className="text-sm text-aegis-muted leading-relaxed">
                   {item.description}
                 </p>
@@ -307,31 +355,34 @@ export default function Home() {
       </section>
 
       {/* Stats */}
-      <section className="py-24 px-6 border-t border-aegis-border bg-aegis-surface">
+      <section className="py-24 px-6 border-t border-aegis-border">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8"
+            className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-aegis-border"
           >
             {[
-              { label: "Decisions Made", value: "0", suffix: "" },
-              { label: "Verifications", value: "0", suffix: "" },
-              { label: "Uptime", value: "99.9", suffix: "%" },
-              { label: "Avg Response", value: "1.2", suffix: "s" },
-            ].map((stat) => (
+              { label: "Decisions Made", value: "0", suffix: "", icon: Brain },
+              { label: "Verifications", value: "0", suffix: "", icon: Shield },
+              { label: "Uptime", value: "99.9", suffix: "%", icon: TrendingUp },
+              { label: "Avg Response", value: "1.2", suffix: "s", icon: Zap },
+            ].map((stat, i) => (
               <motion.div
                 key={stat.label}
                 variants={fadeUp}
-                className="text-center"
+                className={`p-8 text-center ${
+                  i > 0 ? "border-l border-aegis-border" : ""
+                }`}
               >
+                <stat.icon className="w-5 h-5 text-aegis-dim mx-auto mb-4" />
                 <div className="text-3xl md:text-4xl font-bold font-mono mb-2">
                   {stat.value}
                   <span className="text-aegis-blue">{stat.suffix}</span>
                 </div>
-                <div className="text-sm text-aegis-muted uppercase tracking-wider">
+                <div className="text-xs text-aegis-muted uppercase tracking-wider">
                   {stat.label}
                 </div>
               </motion.div>
@@ -341,32 +392,38 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 px-6 border-t border-aegis-border">
+      <section className="py-32 px-6 border-t border-aegis-border relative overflow-hidden">
+        <div className="absolute inset-0 grid-pattern opacity-30" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-aegis-blue/5 blur-[150px] rounded-full" />
+
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
           variants={stagger}
-          className="max-w-3xl mx-auto text-center"
+          className="relative max-w-3xl mx-auto text-center"
         >
           <motion.h2
             variants={fadeUp}
-            className="text-3xl md:text-4xl font-bold tracking-tight mb-6"
+            className="text-3xl md:text-5xl font-bold tracking-tight mb-6"
           >
             Start Building Your Agent
           </motion.h2>
           <motion.p
             variants={fadeUp}
-            className="text-aegis-muted mb-10 max-w-xl mx-auto"
+            className="text-aegis-muted mb-12 max-w-xl mx-auto text-lg"
           >
             Connect your wallet, configure your strategy, and let Aegis manage
             your DeFi portfolio with verifiable AI.
           </motion.p>
           <motion.div variants={fadeUp}>
-            <button className="group flex items-center gap-2 mx-auto px-10 py-4 bg-aegis-white text-aegis-black text-base font-semibold hover:bg-aegis-white/90 transition-all">
+            <a
+              href="/dashboard"
+              className="group inline-flex items-center gap-2 px-10 py-4 bg-aegis-white text-aegis-black text-base font-semibold hover:bg-aegis-white/90 transition-all"
+            >
               Launch App
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </a>
           </motion.div>
         </motion.div>
       </section>
@@ -375,11 +432,9 @@ export default function Home() {
       <footer className="py-8 px-6 border-t border-aegis-border">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <img
-              src="/logos/aegis-logo-transparent.png"
-              alt="Aegis"
-              className="h-6 w-6"
-            />
+            <div className="w-6 h-6 flex items-center justify-center bg-aegis-white">
+              <span className="text-aegis-black font-bold text-[10px]">A.</span>
+            </div>
             <span className="text-sm font-medium">Aegis</span>
           </div>
           <div className="flex items-center gap-6 text-sm text-aegis-muted">
@@ -393,7 +448,8 @@ export default function Home() {
               Twitter
             </a>
           </div>
-          <div className="text-xs text-aegis-dim">
+          <div className="flex items-center gap-2 text-xs text-aegis-dim">
+            <Globe className="w-3.5 h-3.5" />
             Built on 0G Network
           </div>
         </div>
