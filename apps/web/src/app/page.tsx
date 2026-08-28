@@ -92,7 +92,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section with Video Background */}
-      <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16">
         {/* Video Background */}
         <motion.video
           autoPlay
@@ -129,7 +129,7 @@ export default function Home() {
 
           <motion.h1
             variants={fadeUp}
-            className="text-6xl md:text-8xl lg:text-[96px] font-extrabold tracking-tight leading-[1.05] mb-8 text-white"
+            className="text-5xl md:text-7xl lg:text-[80px] font-extrabold tracking-tight leading-[1.1] mb-8 text-white"
             style={{ textShadow: "0 0 60px rgba(255,255,255,0.3), 0 4px 40px rgba(0,0,0,0.9)" }}
           >
             Your AI.
