@@ -91,7 +91,7 @@ export default function Dashboard() {
           {/* Logo */}
           <div className="text-center mb-8">
             <img
-              src="/logos/aegis-logo-transparent.png"
+              src="/logos/aegis-logo.png"
               alt="Aegis"
               className="h-16 w-16 mx-auto mb-4"
             />
@@ -146,7 +146,7 @@ export default function Dashboard() {
         <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img
-              src="/logos/aegis-logo-transparent.png"
+              src="/logos/aegis-logo.png"
               alt="Aegis"
               className="h-6 w-6"
             />

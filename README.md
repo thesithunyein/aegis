@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="apps/web/public/logos/aegis-logo-black-bg.svg" alt="Aegis" width="120" />
+<img src="apps/web/public/logos/aegis-logo.png" alt="Aegis" width="120" />
 
 # Aegis
 

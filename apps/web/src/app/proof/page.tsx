@@ -95,10 +95,7 @@ export default function ProofPage() {
           animate="visible"
           variants={fadeUp}
           className="text-center mb-12"
-        >
-          <div className="w-16 h-16 flex items-center justify-center bg-aegis-card border border-aegis-border mx-auto mb-6">
-            <Shield className="w-8 h-8 text-aegis-green" />
-          </div>
+        >            <img src="/logos/aegis-logo.png" alt="Aegis" className="w-16 h-16 mx-auto mb-6" />
           <h1 className="text-3xl font-bold tracking-tight mb-3">
             Verify Agent Decisions
           </h1>

@@ -36,9 +36,7 @@ export default function Home() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-aegis-black/80 backdrop-blur-xl border-b border-aegis-border">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <a href="/" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 flex items-center justify-center bg-aegis-white">
-              <span className="text-aegis-black font-bold text-sm">A.</span>
-            </div>
+            <img src="/logos/aegis-logo.png" alt="Aegis" className="h-8 w-8" />
             <span className="text-lg font-semibold tracking-tight">Aegis</span>
           </a>
           <div className="hidden md:flex items-center gap-8">
@@ -432,9 +430,7 @@ export default function Home() {
       <footer className="py-8 px-6 border-t border-aegis-border">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-6 h-6 flex items-center justify-center bg-aegis-white">
-              <span className="text-aegis-black font-bold text-[10px]">A.</span>
-            </div>
+            <img src="/logos/aegis-logo.png" alt="Aegis" className="h-6 w-6" />
             <span className="text-sm font-medium">Aegis</span>
           </div>
           <div className="flex items-center gap-6 text-sm text-aegis-muted">
