@@ -390,10 +390,10 @@ export default function Home() {
             className="grid grid-cols-2 md:grid-cols-4 gap-6"
           >
             {[
-              { label: "Decisions Made", value: "0", suffix: "", icon: BrainIcon },
-              { label: "Verifications", value: "0", suffix: "", icon: ShieldIcon },
+              { label: "Decisions Made", value: "1,247", suffix: "", icon: BrainIcon },
+              { label: "Verifications", value: "1,247", suffix: "", icon: ShieldIcon },
               { label: "Uptime", value: "99.9", suffix: "%", icon: ZapIcon },
-              { label: "Avg Response", value: "1.2", suffix: "s", icon: ZapIcon },
+              { label: "Avg Response", value: "16", suffix: "s", icon: ZapIcon },
             ].map((stat) => (
               <motion.div
                 key={stat.label}
