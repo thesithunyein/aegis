@@ -48,7 +48,7 @@ export default function Home() {
     target: heroRef,
     offset: ["start start", "end start"],
   });
-  const videoOpacity = useTransform(scrollYProgress, [0, 0.5], [0.75, 0.45]);
+  const videoOpacity = useTransform(scrollYProgress, [0, 0.5], [0.85, 0.5]);
   const textY = useTransform(scrollYProgress, [0, 1], [0, 30]);
 
   return (
@@ -95,11 +95,7 @@ export default function Home() {
         </motion.video>
         <div className="video-overlay" />
 
-        {/* Subtle background dots */}
-        <div className="absolute inset-0 z-[2] opacity-30" style={{
-          backgroundImage: "radial-gradient(circle, #d1d5db 1px, transparent 1px)",
-          backgroundSize: "24px 24px"
-        }} />
+
 
         <motion.div
           initial="hidden"
@@ -109,7 +105,7 @@ export default function Home() {
           style={{ y: textY }}
         >
           <motion.div variants={fadeUp} className="mb-6">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-green-50 border border-green-200 rounded-full text-xs font-medium text-green-700">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full text-xs font-medium text-white">
               <span className="status-dot status-online" />
               Live on 0G Testnet
             </span>
@@ -117,18 +113,20 @@ export default function Home() {
 
           <motion.h1
             variants={fadeUp}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-6 text-gray-900"
+            className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-6 text-white"
+            style={{ textShadow: "0 2px 40px rgba(0,0,0,0.6), 0 4px 80px rgba(0,0,0,0.3)" }}
           >
             Your AI.
             <br />
             Your Rules.
             <br />
-            <span className="gradient-text">Verified On-Chain.</span>
+            <span className="text-white">Verified On-Chain.</span>
           </motion.h1>
 
           <motion.p
             variants={fadeUp}
-            className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed"
+            className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed"
+            style={{ textShadow: "0 1px 20px rgba(0,0,0,0.5)" }}
           >
             Aegis is an autonomous AI agent that manages your DeFi portfolio and
             proves every decision on-chain. No black boxes. No blind trust.
@@ -139,18 +137,19 @@ export default function Home() {
             variants={fadeUp}
             className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-14"
           >
-            <a href="/dashboard" className="btn-primary text-base px-8 py-3">
+            <a href="/dashboard" className="inline-flex items-center gap-2 px-8 py-3 bg-white text-gray-900 text-base font-semibold rounded-full hover:bg-white/90 transition-all shadow-lg">
               Launch Agent
               <ArrowIcon className="w-4 h-4" />
             </a>
-            <a href="#how-it-works" className="btn-secondary text-base px-8 py-3">
+            <a href="#how-it-works" className="inline-flex items-center gap-2 px-8 py-3 bg-white/15 backdrop-blur-sm text-white text-base font-medium rounded-full border border-white/20 hover:bg-white/25 transition-all">
               Learn More
             </a>
           </motion.div>
 
           <motion.div
             variants={fadeUp}
-            className="flex flex-wrap items-center justify-center gap-6 md:gap-8 text-xs text-gray-400 uppercase tracking-wider font-medium"
+            className="flex flex-wrap items-center justify-center gap-6 md:gap-8 text-xs text-white/50 uppercase tracking-wider font-medium"
+            style={{ textShadow: "0 1px 10px rgba(0,0,0,0.4)" }}
           >
             <span className="flex items-center gap-1.5">
               <ShieldIcon className="w-3.5 h-3.5" />
