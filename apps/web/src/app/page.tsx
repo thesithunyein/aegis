@@ -13,6 +13,12 @@ import {
   ArrowIcon,
   CodeIcon,
   GlobeIcon,
+  WarningIcon,
+  BanIcon,
+  EyeOffIcon,
+  ShieldCheckIcon,
+  TokenIcon,
+  LockEnforcedIcon,
 } from "@/components/icons";
 
 const fadeUp = {
@@ -225,17 +231,17 @@ export default function Home() {
           >
             {[
               {
-                icon: "⚠️",
+                Icon: WarningIcon,
                 title: "No Risk Limits",
                 desc: "Traditional AI agents can trade your entire portfolio on a single bad decision. No max position size. No stop loss. No safety net.",
               },
               {
-                icon: "🎰",
+                Icon: BanIcon,
                 title: "No Token Restrictions",
                 desc: "An AI agent can trade ANY token — including scam coins, rug pulls, and honeypots. You have zero control over what it touches.",
               },
               {
-                icon: "🔒",
+                Icon: EyeOffIcon,
                 title: "No Proof of Execution",
                 desc: "When an AI agent makes a trade, you have no cryptographic proof of what it actually did. No receipt. No audit trail. No accountability.",
               },
@@ -245,7 +251,9 @@ export default function Home() {
                 variants={fadeUp}
                 className="bg-red-500/5 border border-red-500/20 rounded-2xl p-6"
               >
-                <div className="text-3xl mb-4">{item.icon}</div>
+                <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-red-500/10 mb-4">
+                  <item.Icon className="w-6 h-6 text-red-400" />
+                </div>
                 <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
                 <p className="text-sm text-gray-400 leading-relaxed">{item.desc}</p>
               </motion.div>
@@ -310,17 +318,17 @@ export default function Home() {
           >
             {[
               {
-                icon: "🛡️",
+                Icon: ShieldCheckIcon,
                 title: "Max Position Size",
                 desc: "Set a maximum percentage the agent can allocate to any single position. The smart contract enforces it — the agent literally cannot exceed it.",
               },
               {
-                icon: "✅",
+                Icon: TokenIcon,
                 title: "Allowed Tokens Only",
                 desc: "Whitelist specific tokens the agent can trade. Anything else is blocked by the smart contract. No scam coins. No rug pulls.",
               },
               {
-                icon: "📋",
+                Icon: LockEnforcedIcon,
                 title: "Risk Tolerance Levels",
                 desc: "Set conservative, moderate, or aggressive. The AI reasoning is constrained by your risk profile — not the other way around.",
               },
@@ -330,7 +338,9 @@ export default function Home() {
                 variants={fadeUp}
                 className="bg-green-500/5 border border-green-500/20 rounded-2xl p-6"
               >
-                <div className="text-3xl mb-4">{item.icon}</div>
+                <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-green-500/10 mb-4">
+                  <item.Icon className="w-6 h-6 text-green-400" />
+                </div>
                 <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
                 <p className="text-sm text-gray-400 leading-relaxed">{item.desc}</p>
               </motion.div>

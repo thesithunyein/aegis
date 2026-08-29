@@ -247,3 +247,66 @@ export function XCircleIcon({ className = "", size = 24 }: IconProps) {
     </svg>
   );
 }
+
+// Warning triangle - geometric
+export function WarningIcon({ className = "", size = 24 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
+      <path d="M12 3L2 21H22L12 3Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="miter"/>
+      <path d="M12 10V14" stroke="currentColor" strokeWidth="2" strokeLinecap="square"/>
+      <rect x="11" y="17" width="2" height="2" fill="currentColor"/>
+    </svg>
+  );
+}
+
+// Ban/block circle
+export function BanIcon({ className = "", size = 24 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5"/>
+      <path d="M5 19L19 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square"/>
+    </svg>
+  );
+}
+
+// Eye with slash - no visibility
+export function EyeOffIcon({ className = "", size = 24 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
+      <path d="M2 12C2 12 5 5 12 5C19 5 22 12 22 12C22 12 19 19 12 19C5 19 2 12 2 12Z" stroke="currentColor" strokeWidth="1.5"/>
+      <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.5"/>
+      <path d="M4 20L20 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square"/>
+    </svg>
+  );
+}
+
+// Shield with check - verified safety
+export function ShieldCheckIcon({ className = "", size = 24 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
+      <path d="M12 2L3 7V12C3 17.5 6.8 22.7 12 24C17.2 22.7 21 17.5 21 12V7L12 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="miter"/>
+      <path d="M8 12L11 15L16 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter"/>
+    </svg>
+  );
+}
+
+// Token/coin icon
+export function TokenIcon({ className = "", size = 24 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5"/>
+      <path d="M12 6V18M9 8H14C15.1 8 16 8.9 16 10C16 11.1 15.1 12 14 12H9M9 12H15C16.1 12 17 12.9 17 14C17 15.1 16.1 16 15 16H9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square"/>
+    </svg>
+  );
+}
+
+// Lock closed - enforced rules
+export function LockEnforcedIcon({ className = "", size = 24 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
+      <rect x="5" y="11" width="14" height="10" stroke="currentColor" strokeWidth="1.5"/>
+      <path d="M8 11V7C8 4.8 9.8 3 12 3C14.2 3 16 4.8 16 7V11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square"/>
+      <rect x="10" y="14" width="4" height="4" fill="currentColor"/>
+    </svg>
+  );
+}
