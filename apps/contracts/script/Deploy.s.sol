@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.24;
 
 import "forge-std/Script.sol";
 import "../src/AegisVault.sol";
@@ -31,10 +31,7 @@ contract DeployScript is Script {
         console.log("DecisionLog deployed at:", address(decisionLog));
 
         // 3. Deploy AegisVault
-        AegisVault vault = new AegisVault(
-            address(registry),
-            address(decisionLog)
-        );
+        AegisVault vault = new AegisVault();
         console.log("AegisVault deployed at:", address(vault));
 
         vm.stopBroadcast();

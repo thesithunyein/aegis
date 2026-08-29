@@ -10,6 +10,7 @@
 
 import { runInference, type ComputeResult } from "./0g-compute";
 import { storeData, type StorageResult } from "./0g-storage";
+import { getMarketData as fetchMarketData } from "./market-data";
 
 export interface StrategyConfig {
   riskTolerance: "low" | "medium" | "high";
@@ -27,6 +28,8 @@ export interface MarketData {
     value: number;
     protocol: string;
   }>;
+  lastUpdated?: string;
+  source?: string;
 }
 
 export interface AgentDecision {
@@ -180,31 +183,8 @@ export async function executeAgent(
 }
 
 /**
- * Get real-time market data (mock for MVP, would connect to oracles)
+ * Get real-time market data from CoinGecko API
  */
 export async function getMarketData(): Promise<MarketData> {
-  // TODO: Connect to Chainlink oracle or DeFi API for real prices
-  // For now, use realistic mock data that represents current DeFi state
-  return {
-    prices: {
-      ETH: 4521.32,
-      BTC: 112450.0,
-      USDC: 1.0,
-      AAVE: 312.45,
-      UNI: 11.82,
-      LINK: 18.92,
-    },
-    yields: {
-      "ETH-staking": 3.8,
-      "USDC-lending": 5.2,
-      "AAVE-supply": 4.1,
-      "UNI-LP": 12.5,
-    },
-    positions: [
-      { token: "ETH", amount: 2.5, value: 11303.3, protocol: "Aave V3" },
-      { token: "USDC", amount: 8500, value: 8500, protocol: "Compound" },
-      { token: "AAVE", amount: 15, value: 4686.75, protocol: "Staked" },
-      { token: "UNI", amount: 200, value: 2364, protocol: "Uniswap V3 LP" },
-    ],
-  };
+  return fetchMarketData();
 }

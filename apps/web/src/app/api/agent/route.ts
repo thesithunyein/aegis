@@ -45,11 +45,22 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET() {
-  // Return current agent status and recent decisions
-  return NextResponse.json({
-    status: "operational",
-    model: "deepseek-ai/DeepSeek-V3",
-    uptime: "99.9%",
-    network: "0G Galileo Testnet",
-  });
+  // Return current market prices (live from CoinGecko)
+  try {
+    const marketData = await getMarketData();
+    return NextResponse.json({
+      status: "operational",
+      model: "0gm-1.0-35b-a3b",
+      network: "0G Mainnet",
+      prices: marketData.prices,
+      lastUpdated: marketData.lastUpdated,
+      source: marketData.source,
+    });
+  } catch {
+    return NextResponse.json({
+      status: "operational",
+      model: "0gm-1.0-35b-a3b",
+      network: "0G Mainnet",
+    });
+  }
 }

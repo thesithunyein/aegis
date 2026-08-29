@@ -1,78 +1,44 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.24;
 
 import "forge-std/Test.sol";
 import "../src/DecisionLog.sol";
 
-contract DecisionLogTest is DecisionLog {
-    // Expose internal state for testing
-    function getDecisionCount() external view returns (uint256) {
-        return decisionCount;
-    }
-}
-
-contract DecisionLogTestRunner is Test {
-    DecisionLogTest log;
-
-    address agent = address(0x1);
-    address user = address(0x2);
+contract DecisionLogTest is Test {
+    DecisionLog decisionLog;
 
     function setUp() public {
-        log = new DecisionLogTest();
+        decisionLog = new DecisionLog();
     }
 
-    function testLogDecision() public {
-        bytes32 decisionHash = keccak256("test-decision");
-        bytes32 storageHash = keccak256("storage-proof");
-
-        uint256 id = log.logDecision(
-            agent,
-            user,
-            decisionHash,
-            storageHash,
-            85, // confidence
-            30  // riskScore
-        );
-
-        assertEq(id, 1);
-        assertEq(log.getDecisionCount(), 1);
+    function test_log_decision() public {
+        bytes32 hash = keccak256("test-reasoning");
+        uint256 id = decisionLog.logDecision(hash, "Increase ETH by 5%", 8500);
+        
+        assertEq(id, 0);
+        assertEq(decisionLog.decisionCount(), 1);
+        
+        DecisionLog.Decision memory d = decisionLog.getDecision(id);
+        assertEq(d.id, 0);
+        assertEq(d.agent, address(this));
+        assertEq(d.reasoningHash, hash);
+        assertEq(d.confidence, 8500);
     }
 
-    function testGetDecision() public {
-        bytes32 decisionHash = keccak256("test-decision");
-        bytes32 storageHash = keccak256("storage-proof");
-
-        log.logDecision(agent, user, decisionHash, storageHash, 85, 30);
-
-        (address storedAgent, address storedUser, bytes32 storedHash, , uint256 confidence, uint256 riskScore) = log.getDecision(1);
-
-        assertEq(storedAgent, agent);
-        assertEq(storedUser, user);
-        assertEq(storedHash, decisionHash);
-        assertEq(confidence, 85);
-        assertEq(riskScore, 30);
+    function test_mark_executed() public {
+        uint256 id = decisionLog.logDecision(bytes32(0), "Test", 5000);
+        decisionLog.markExecuted(id, keccak256("tx"));
+        
+        DecisionLog.Decision memory d = decisionLog.getDecision(id);
+        assertTrue(d.executed);
+        assertEq(d.txHash, keccak256("tx"));
     }
 
-    function testVerifyDecision() public {
-        bytes32 decisionHash = keccak256("test-decision");
-        bytes32 storageHash = keccak256("storage-proof");
-
-        log.logDecision(agent, user, decisionHash, storageHash, 85, 30);
-
-        assertTrue(log.verifyDecision(1, decisionHash, storageHash));
-        assertFalse(log.verifyDecision(1, keccak256("wrong"), storageHash));
-    }
-
-    function testExecuteDecision() public {
-        bytes32 decisionHash = keccak256("test-decision");
-        bytes32 storageHash = keccak256("storage-proof");
-
-        log.logDecision(agent, user, decisionHash, storageHash, 85, 30);
-
-        bytes32 txHash = keccak256("tx-0x123");
-        log.executeDecision(1, txHash);
-
-        (, , , bytes32 storedTxHash, , ) = log.getDecision(1);
-        assertEq(storedTxHash, txHash);
+    function test_verify_decision() public {
+        uint256 id = decisionLog.logDecision(bytes32(0), "Test", 5000);
+        decisionLog.verifyDecision(id);
+        
+        DecisionLog.Decision memory d = decisionLog.getDecision(id);
+        assertTrue(d.verified);
     }
 }

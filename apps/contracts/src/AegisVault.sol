@@ -116,15 +116,8 @@ contract AegisVault is ReentrancyGuard {
 
         action.executed = true;
 
-        bool success;
-        if (action.target == address(0)) {
-            // ETH transfer
-            success = true;
-            (success, ) = payable(action.target).call{value: action.value}("");
-        } else {
-            // ERC20 transfer or contract call
-            (success, ) = action.target.call{value: action.value, data: action.data};
-        }
+        bytes memory callData = action.data;
+        (bool success, ) = action.target.call{value: action.value}(callData);
 
         emit ActionExecuted(actionId, success);
         require(success, "Action failed");
@@ -156,8 +149,8 @@ contract AegisVault is ReentrancyGuard {
         require(address(this).balance >= amount, "Insufficient balance");
         totalWithdrawals += amount;
 
-        (bool success, ) = payable(owner).call{value: amount}("");
-        require(success, "Withdraw failed");
+        (bool ok, ) = payable(owner).call{value: amount}("");
+        require(ok, "Withdraw failed");
 
         emit Withdrawn(address(0), amount);
     }

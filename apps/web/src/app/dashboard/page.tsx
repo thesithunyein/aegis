@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useWallet } from "@/components/WalletProvider";
 import {
@@ -59,6 +59,23 @@ export default function Dashboard() {
   const [decisions, setDecisions] = useState<AgentDecision[]>([]);
   const [config, setConfig] = useState<AgentConfig>(defaultConfig);
   const [lastRun, setLastRun] = useState<{ tokens: number; latency: number } | null>(null);
+  const [livePrices, setLivePrices] = useState<Record<string, number>>({});
+  const [priceSource, setPriceSource] = useState("");
+
+  // Fetch live prices on mount and every 60s
+  useEffect(() => {
+    const fetchPrices = async () => {
+      try {
+        const res = await fetch("/api/agent");
+        const data = await res.json();
+        if (data.prices) setLivePrices(data.prices);
+        if (data.source) setPriceSource(data.source);
+      } catch { /* ignore */ }
+    };
+    fetchPrices();
+    const interval = setInterval(fetchPrices, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   const runAgent = useCallback(async () => {
     setIsRunning(true);
@@ -234,6 +251,27 @@ export default function Dashboard() {
                   </button>
                 ))}
               </div>
+
+              {Object.keys(livePrices).length > 0 && (
+                <div className="card shadow-google mb-5">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-sm font-semibold text-white">Live Market Prices</h3>
+                      <span className="status-dot status-online" />
+                      <span className="text-xs text-gray-500">{priceSource}</span>
+                    </div>
+                    <span className="text-xs text-gray-500">Updated {new Date().toLocaleTimeString()}</span>
+                  </div>
+                  <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+                    {Object.entries(livePrices).map(([token, price]) => (
+                      <div key={token} className="bg-white/5 rounded-xl p-3">
+                        <div className="text-xs text-gray-400 mb-1">{token}</div>
+                        <div className="text-sm font-mono font-bold text-white">${price.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div className="card shadow-google">
                 <div className="flex items-center justify-between mb-4">
