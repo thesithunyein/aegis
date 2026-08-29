@@ -80,7 +80,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16">
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16 bg-gray-900">
         {/* Video Background */}
         <motion.video
           autoPlay
@@ -184,8 +184,11 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* Dark to light transition */}
+      <div className="h-32 bg-gradient-to-b from-gray-900 to-white" />
+
       {/* How It Works */}
-      <section id="how-it-works" className="py-24 px-6 bg-gray-50">
+      <section id="how-it-works" className="py-24 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"

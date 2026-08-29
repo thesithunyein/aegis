@@ -226,11 +226,10 @@ button, a, input, select {
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.3) 0%,
-    rgba(0, 0, 0, 0.2) 30%,
-    rgba(0, 0, 0, 0.15) 55%,
-    rgba(0, 0, 0, 0.4) 75%,
-    rgba(0, 0, 0, 0.6) 90%,
-    rgba(255, 255, 255, 1) 100%
+    rgba(0, 0, 0, 0.15) 40%,
+    rgba(0, 0, 0, 0.2) 60%,
+    rgba(0, 0, 0, 0.5) 85%,
+    rgba(0, 0, 0, 0.7) 100%
   );
   z-index: 1;
 }
