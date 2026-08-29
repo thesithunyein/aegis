@@ -113,7 +113,18 @@ forge script script/Deploy.s.sol --rpc-url https://evmrpc-testnet.0g.ai --broadc
 
 ## Deployment
 
-Live at: [aegis.sithunyein.com](https://aegis.sithunyein.com)
+**Live Site**: [aegis.sithunyein.com](https://aegis.sithunyein.com)
+
+**Deployed Contracts (0G Galileo Testnet — Chain 16602)**
+
+| Contract | Address | Explorer |
+|----------|---------|----------|
+| **AgentID (ERC-7857)** | `0x423B8701Da3a251a3A3fc2d241b71e8d05744C91` | [View](https://evmrpc-testnet.0g.ai/address/0x423B8701Da3a251a3A3fc2d241b71e8d05744C91) |
+| **AgentRegistry** | `0xEC4EfbE18915ED9BB78E928Dd637134c1456B7E3` | [View](https://evmrpc-testnet.0g.ai/address/0xEC4EfbE18915ED9BB78E928Dd637134c1456B7E3) |
+| **DecisionLog** | `0xcC1Ef2948269d702c719E6BA1A55D25b3c05b262` | [View](https://evmrpc-testnet.0g.ai/address/0xcC1Ef2948269d702c719E6BA1A55D25b3c05b262) |
+| **AegisVault** | `0x13Bb32402BCFfDb486c675f943Be7b07BBa54D60` | [View](https://evmrpc-testnet.0g.ai/address/0x13Bb32402BCFfDb486c675f943Be7b07BBa54D60) |
+
+**Deployer**: `0x7A35f63F81357DaDE2cff8f5699b935786Aa9Da2`
 
 ## Built for
 
