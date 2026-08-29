@@ -342,7 +342,7 @@ export default function Dashboard() {
                       { label: "Connected Wallet", value: shorten(address || "0x0"), accent: true },
                       { label: "Balance", value: `${balance} OG` },
                       { label: "Network", value: "0G Network", online: true },
-                      { label: "Compute Model", value: "DeepSeek-V3 (0G Compute)" },
+                      { label: "Compute Model", value: "DeepSeek-V4-Pro (0G Compute)" },
                     ].map((item, i) => (
                       <div key={item.label} className={`flex items-center justify-between py-2.5 ${i > 0 ? "border-t border-white/10" : ""}`}>
                         <span className="text-sm text-gray-400">{item.label}</span>

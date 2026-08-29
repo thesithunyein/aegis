@@ -63,16 +63,11 @@ Rules:
 4. Assign a risk score (0-100) based on potential downside
 5. If risk is too high, recommend holding (no action)
 
-You MUST respond with valid JSON in this exact format:
-{
-  "action": "string - what to do (e.g., 'Increase ETH position by 5%', 'Hold current positions', 'Claim AAVE rewards')",
-  "reasoning": "string - detailed explanation of why",
-  "confidence": number - 0 to 100,
-  "riskScore": number - 0 to 100,
-  "token": "string - which token this affects",
-  "protocol": "string - which DeFi protocol",
-  "expectedImpact": "string - what this should achieve"
-}`;
+CRITICAL: Your ENTIRE response must be a single valid JSON object. No thinking, no explanation, no markdown, no code blocks. Just the raw JSON object.
+
+Format:
+{"action":"string","reasoning":"string","confidence":0-100,"riskScore":0-100,"token":"string","protocol":"string","expectedImpact":"string"}
+`;
 }
 
 /**
@@ -111,7 +106,7 @@ Analyze this portfolio and propose the optimal next action. Consider:
 3. Is there rebalancing needed?
 4. Are there rewards to claim?
 
-Respond with JSON only.`;
+Reply with ONLY the JSON object above. No other text.`;
 }
 
 /**
@@ -132,9 +127,9 @@ export async function executeAgent(
     { role: "user" as const, content: getAnalysisPrompt(marketData) },
   ];
 
-  const computeResult = await runInference(messages, "deepseek-ai/DeepSeek-V3", {
+  const computeResult = await runInference(messages, "0gm-1.0-35b-a3b", {
     temperature: 0.3,
-    maxTokens: 1024,
+    maxTokens: 4096,
   });
 
   // Parse the AI response

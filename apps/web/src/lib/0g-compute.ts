@@ -33,7 +33,7 @@ export interface ComputeResult {
  */
 export async function runInference(
   messages: OpenAI.ChatCompletionMessageParam[],
-  model: string = "deepseek-ai/DeepSeek-V3",
+  model: string = "0gm-1.0-35b-a3b",
   options?: { temperature?: number; maxTokens?: number }
 ): Promise<ComputeResult> {
   if (!API_KEY) {
@@ -53,15 +53,20 @@ export async function runInference(
     model,
     messages,
     temperature: options?.temperature ?? 0.7,
-    max_tokens: options?.maxTokens ?? 1024,
-  });
+    max_tokens: options?.maxTokens ?? 4096,
+    response_format: { type: "json_object" },
+  } as OpenAI.ChatCompletionCreateParamsNonStreaming);
 
   const latencyMs = Date.now() - start;
   const choice = completion.choices[0];
 
+  // Some models (DeepSeek, etc.) put content in reasoning_content when thinking is on
+  const msg = choice.message as unknown as Record<string, string>;
+  const content = choice.message.content || msg.reasoning_content || "";
+
   return {
     model,
-    content: choice.message.content || "",
+    content,
     usage: {
       promptTokens: completion.usage?.prompt_tokens ?? 0,
       completionTokens: completion.usage?.completion_tokens ?? 0,
@@ -76,7 +81,7 @@ export async function runInference(
  */
 export async function listModels(): Promise<string[]> {
   if (!API_KEY) {
-    return ["deepseek-ai/DeepSeek-V3", "gpt-4o-mini", "qwen-2.5-72b-instruct"];
+    return ["deepseek-v4-pro", "deepseek-v4-flash", "qwen3.8-max", "gpt-5.6-sol"];
   }
 
   const client = new OpenAI({
@@ -88,6 +93,6 @@ export async function listModels(): Promise<string[]> {
     const models = await client.models.list();
     return models.data.map((m) => m.id);
   } catch {
-    return ["deepseek-ai/DeepSeek-V3", "gpt-4o-mini", "qwen-2.5-72b-instruct"];
+    return ["deepseek-v4-pro", "deepseek-v4-flash", "qwen3.8-max", "gpt-5.6-sol"];
   }
 }
