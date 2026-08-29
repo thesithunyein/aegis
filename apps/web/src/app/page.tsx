@@ -184,6 +184,161 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* The Problem */}
+      <section className="py-24 px-6 bg-black">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={stagger}
+            className="text-center mb-16"
+          >
+            <motion.span
+              variants={fadeUp}
+              className="text-xs font-medium text-red-400 uppercase tracking-wider mb-3 block"
+            >
+              The Problem
+            </motion.span>
+            <motion.h2
+              variants={fadeUp}
+              className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-white"
+            >
+              AI Agents Are Managing Real Money.
+              <br />
+              <span className="text-red-400">But They Can Do Anything.</span>
+            </motion.h2>
+            <motion.p
+              variants={fadeUp}
+              className="text-lg text-gray-400 max-w-2xl mx-auto"
+            >
+              AI agents are executing trades in DeFi right now. But they operate as black boxes with zero enforceable constraints. The result? Billions lost to unauthorized trades, ignored risk limits, and scam tokens.
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={stagger}
+            className="grid md:grid-cols-3 gap-6 mb-16"
+          >
+            {[
+              {
+                icon: "⚠️",
+                title: "No Risk Limits",
+                desc: "Traditional AI agents can trade your entire portfolio on a single bad decision. No max position size. No stop loss. No safety net.",
+              },
+              {
+                icon: "🎰",
+                title: "No Token Restrictions",
+                desc: "An AI agent can trade ANY token — including scam coins, rug pulls, and honeypots. You have zero control over what it touches.",
+              },
+              {
+                icon: "🔒",
+                title: "No Proof of Execution",
+                desc: "When an AI agent makes a trade, you have no cryptographic proof of what it actually did. No receipt. No audit trail. No accountability.",
+              },
+            ].map((item) => (
+              <motion.div
+                key={item.title}
+                variants={fadeUp}
+                className="bg-red-500/5 border border-red-500/20 rounded-2xl p-6"
+              >
+                <div className="text-3xl mb-4">{item.icon}</div>
+                <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
+                <p className="text-sm text-gray-400 leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={stagger}
+            className="bg-gradient-to-r from-red-500/10 to-orange-500/10 border border-red-500/20 rounded-2xl p-8 text-center"
+          >
+            <motion.p variants={fadeUp} className="text-lg text-gray-300 mb-4">
+              The problem isn't AI. <span className="text-white font-semibold">The problem is trust.</span>
+            </motion.p>
+            <motion.p variants={fadeUp} className="text-sm text-gray-400 max-w-xl mx-auto">
+              You wouldn't hand your car keys to a stranger and say "drive safely." So why hand your portfolio to an AI with no enforceable rules?
+            </motion.p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* The Solution */}
+      <section className="py-24 px-6 bg-black">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={stagger}
+            className="text-center mb-16"
+          >
+            <motion.span
+              variants={fadeUp}
+              className="text-xs font-medium text-green-400 uppercase tracking-wider mb-3 block"
+            >
+              The Solution
+            </motion.span>
+            <motion.h2
+              variants={fadeUp}
+              className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-white"
+            >
+              Risk Rules Enforced Onchain.
+              <br />
+              <span className="text-green-400">The Agent Cannot Bypass Them.</span>
+            </motion.h2>
+            <motion.p
+              variants={fadeUp}
+              className="text-lg text-gray-400 max-w-2xl mx-auto"
+            >
+              Aegis deploys your risk constraints as smart contracts. The AI operates within them. Not suggestions. Not guidelines. Enforceable onchain rules the agent physically cannot break.
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={stagger}
+            className="grid md:grid-cols-3 gap-6"
+          >
+            {[
+              {
+                icon: "🛡️",
+                title: "Max Position Size",
+                desc: "Set a maximum percentage the agent can allocate to any single position. The smart contract enforces it — the agent literally cannot exceed it.",
+              },
+              {
+                icon: "✅",
+                title: "Allowed Tokens Only",
+                desc: "Whitelist specific tokens the agent can trade. Anything else is blocked by the smart contract. No scam coins. No rug pulls.",
+              },
+              {
+                icon: "📋",
+                title: "Risk Tolerance Levels",
+                desc: "Set conservative, moderate, or aggressive. The AI reasoning is constrained by your risk profile — not the other way around.",
+              },
+            ].map((item) => (
+              <motion.div
+                key={item.title}
+                variants={fadeUp}
+                className="bg-green-500/5 border border-green-500/20 rounded-2xl p-6"
+              >
+                <div className="text-3xl mb-4">{item.icon}</div>
+                <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
+                <p className="text-sm text-gray-400 leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       {/* How It Works */}
       <section id="how-it-works" className="py-24 px-6 bg-black">
         <div className="max-w-6xl mx-auto">
