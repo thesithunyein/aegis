@@ -52,24 +52,24 @@ export default function Home() {
   const textY = useTransform(scrollYProgress, [0, 1], [0, 30]);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-black">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-100">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-lg border-b border-white/10">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2.5 group">
             <img src="/logos/aegis-logo.png" alt="Aegis" className="h-7 w-7 rounded-lg" />
-            <span className="text-base font-semibold text-gray-900">
+            <span className="text-base font-semibold text-white">
               Aegis
             </span>
           </a>
           <div className="hidden md:flex items-center gap-8">
-            <a href="#how-it-works" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+            <a href="#how-it-works" className="text-sm text-gray-400 hover:text-white transition-colors">
               How It Works
             </a>
-            <a href="#features" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+            <a href="#features" className="text-sm text-gray-400 hover:text-white transition-colors">
               Features
             </a>
-            <a href="#built-on-0g" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+            <a href="#built-on-0g" className="text-sm text-gray-400 hover:text-white transition-colors">
               Built on 0G
             </a>
           </div>
