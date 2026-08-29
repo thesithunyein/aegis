@@ -268,7 +268,7 @@ Every decision is logged on 0G Chain with:
 ### Known Limitations
 
 - Market data is from CoinGecko (not on-chain oracles)
-- Simulated portfolio positions (not reading real on-chain balances)
+- Portfolio shows native OG balance from 0G Chain (no ERC-20 tokens on testnet)
 - TEE attestation is server-generated (not from actual TEE enclave yet)
 - Contracts deployed on testnet (mainnet requires OG tokens for gas)
 

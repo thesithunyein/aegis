@@ -85,7 +85,7 @@ export default function Dashboard() {
       const res = await fetch("/api/agent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ strategy: config }),
+        body: JSON.stringify({ strategy: config, walletAddress: address }),
       });
       const data = await res.json();
       if (data.success && data.decision) {
@@ -100,7 +100,7 @@ export default function Dashboard() {
     } finally {
       setIsRunning(false);
     }
-  }, [config]);
+  }, [config, address]);
 
   const totalDecisions = decisions.length;
   const successRate = totalDecisions > 0

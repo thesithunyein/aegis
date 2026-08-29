@@ -1,8 +1,11 @@
 /**
- * Real Market Data — fetched from CoinGecko API
+ * Real Market Data — fetched from CoinGecko API + 0G Chain
  * 
- * Replaces hardcoded mock data with live prices and yields.
+ * Reads real wallet balances from 0G Chain.
+ * No simulated data — this is the user's actual portfolio.
  */
+
+import { getRealPortfolio } from "./wallet-balance";
 
 export interface MarketData {
   prices: Record<string, number>;
@@ -26,6 +29,7 @@ const TOKEN_IDS: Record<string, string> = {
   AAVE: "aave",
   UNI: "uniswap",
   LINK: "chainlink",
+  OG: "0g-ai", // 0G native token
 };
 
 const DEFI_YIELDS: Record<string, number> = {
@@ -37,13 +41,7 @@ const DEFI_YIELDS: Record<string, number> = {
   "LINK-staking": 4.5,
 };
 
-// Simulated portfolio positions (would be read from on-chain in production)
-const DEFAULT_POSITIONS = [
-  { token: "ETH", amount: 2.5, protocol: "Aave V3" },
-  { token: "USDC", amount: 8500, protocol: "Compound" },
-  { token: "AAVE", amount: 15, protocol: "Staked" },
-  { token: "UNI", amount: 200, protocol: "Uniswap V3 LP" },
-];
+
 
 /**
  * Fetch live prices from CoinGecko
@@ -95,20 +93,25 @@ function getFallbackPrices(): Record<string, number> {
 
 /**
  * Get full market data with live prices
+ * @param walletAddress - Optional wallet address to read real balances from chain
  */
-export async function getMarketData(): Promise<MarketData> {
+export async function getMarketData(walletAddress?: string): Promise<MarketData> {
   const prices = await fetchPrices();
 
-  const positions = DEFAULT_POSITIONS.map((p) => ({
-    ...p,
-    value: p.amount * (prices[p.token] || 0),
-  }));
+  // Read real portfolio from 0G Chain if wallet address provided
+  let positions: Array<{ token: string; amount: number; value: number; protocol: string }>;
+  if (walletAddress) {
+    positions = await getRealPortfolio(walletAddress, prices);
+  } else {
+    // Fallback: empty portfolio (no wallet connected)
+    positions = [];
+  }
 
   return {
     prices,
     yields: DEFI_YIELDS,
     positions,
     lastUpdated: new Date().toISOString(),
-    source: "CoinGecko (live) + DeFi yields (static)",
+    source: walletAddress ? "CoinGecko (live) + 0G Chain (real balance)" : "CoinGecko (live)",
   };
 }

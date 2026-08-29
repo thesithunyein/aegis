@@ -198,8 +198,9 @@ export async function executeAgent(
 }
 
 /**
- * Get real-time market data from CoinGecko API
+ * Get real-time market data from CoinGecko API + real wallet balance from 0G Chain
+ * @param walletAddress - Optional wallet address to read real balances from chain
  */
-export async function getMarketData(): Promise<MarketData> {
-  return fetchMarketData();
+export async function getMarketData(walletAddress?: string): Promise<MarketData> {
+  return fetchMarketData(walletAddress);
 }

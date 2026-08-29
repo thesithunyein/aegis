@@ -14,7 +14,10 @@ import { executeAgent, getMarketData, type StrategyConfig } from "@/lib/agent-en
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { strategy } = body as { strategy?: Partial<StrategyConfig> };
+    const { strategy, walletAddress } = body as { 
+      strategy?: Partial<StrategyConfig>;
+      walletAddress?: string;
+    };
 
     const config: StrategyConfig = {
       riskTolerance: strategy?.riskTolerance || "low",
@@ -23,8 +26,8 @@ export async function POST(req: NextRequest) {
       strategy: strategy?.strategy || "conservative",
     };
 
-    // Step 1: Get current market data
-    const marketData = await getMarketData();
+    // Step 1: Get current market data with real wallet balance
+    const marketData = await getMarketData(walletAddress);
 
     // Step 2-4: Run agent pipeline (Compute + Storage + Decision)
     const decision = await executeAgent(config, marketData);
