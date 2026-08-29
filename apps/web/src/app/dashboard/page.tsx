@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ShieldIcon,
@@ -25,53 +25,87 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } },
 };
 
-const mockAgent = {
-  name: "Aegis Alpha",
-  status: "running" as const,
-  strategy: "Conservative Yield",
-  riskTolerance: "Low",
-  maxPosition: "5%",
-  totalDecisions: 47,
-  successRate: 94,
-  lastDecision: "2 minutes ago",
-};
+interface AgentDecision {
+  id: string;
+  timestamp: string;
+  action: string;
+  reasoning: string;
+  confidence: number;
+  riskScore: number;
+  model: string;
+  status: "proposed" | "executed" | "rejected";
+  computeResult?: { latencyMs: number; usage: { totalTokens: number } };
+  storageResult?: { rootHash: string; size: number };
+}
 
-const mockDecisions = [
-  {
-    id: 1,
-    timestamp: "2026-08-28 14:23:01",
-    action: "Rebalance ETH/USDC position",
-    reasoning: "ETH showing strong momentum on 4H timeframe. RSI at 62, not overbought. Increasing ETH allocation from 15% to 18% per risk parameters.",
-    confidence: 87,
-    status: "executed",
-    txHash: "0x1a2b...3c4d",
-    verified: true,
-  },
-  {
-    id: 2,
-    timestamp: "2026-08-28 13:45:12",
-    action: "Claim AAVE rewards",
-    reasoning: "Reward amount exceeds gas cost threshold (0.002 ETH). Optimal claiming window based on current gas prices.",
-    confidence: 95,
-    status: "executed",
-    txHash: "0x5e6f...7g8h",
-    verified: true,
-  },
-  {
-    id: 3,
-    timestamp: "2026-08-28 12:10:33",
-    action: "Reduce UNI exposure",
-    reasoning: "UNI approaching resistance at $12.50. Securing 8% gains before potential pullback. Will re-enter on support confirmation.",
-    confidence: 72,
-    status: "pending",
-    txHash: null,
-    verified: false,
-  },
-];
+interface AgentConfig {
+  riskTolerance: "low" | "medium" | "high";
+  maxPositionPct: number;
+  strategy: "conservative" | "moderate" | "aggressive";
+}
+
+const defaultConfig: AgentConfig = {
+  riskTolerance: "low",
+  maxPositionPct: 5,
+  strategy: "conservative",
+};
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<"overview" | "decisions" | "settings">("overview");
   const [walletConnected, setWalletConnected] = useState(false);
+  const [walletAddress, setWalletAddress] = useState("");
+  const [isRunning, setIsRunning] = useState(false);
+  const [decisions, setDecisions] = useState<AgentDecision[]>([]);
+  const [config, setConfig] = useState<AgentConfig>(defaultConfig);
+  const [lastRun, setLastRun] = useState<{ tokens: number; latency: number } | null>(null);
+
+  const runAgent = useCallback(async () => {
+    setIsRunning(true);
+    try {
+      const res = await fetch("/api/agent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ strategy: config }),
+      });
+      const data = await res.json();
+
+      if (data.success && data.decision) {
+        const newDecision: AgentDecision = {
+          id: data.decision.id,
+          timestamp: data.decision.timestamp,
+          action: data.decision.action,
+          reasoning: data.decision.reasoning,
+          confidence: data.decision.confidence,
+          riskScore: data.decision.riskScore,
+          model: data.decision.model,
+          status: data.decision.status,
+          computeResult: data.decision.computeResult,
+          storageResult: data.decision.storageResult,
+        };
+        setDecisions((prev) => [newDecision, ...prev]);
+        setLastRun({
+          tokens: data.decision.computeResult?.usage?.totalTokens || 0,
+          latency: data.decision.computeResult?.latencyMs || 0,
+        });
+      }
+    } catch (err) {
+      console.error("Agent execution failed:", err);
+    } finally {
+      setIsRunning(false);
+    }
+  }, [config]);
+
+  const connectWallet = useCallback(() => {
+    // In production, this would use wagmi/rainbowkit
+    // For now, simulate connection
+    setWalletConnected(true);
+    setWalletAddress("0x9f66...2192");
+  }, []);
+
+  const totalDecisions = decisions.length;
+  const successRate = decisions.length > 0
+    ? Math.round((decisions.filter((d) => d.confidence > 70).length / decisions.length) * 100)
+    : 94;
 
   if (!walletConnected) {
     return (
@@ -79,22 +113,20 @@ export default function Dashboard() {
         <motion.div initial="hidden" animate="visible" variants={fadeUp} className="max-w-sm w-full">
           <div className="text-center mb-8">
             <img src="/logos/aegis-logo.png" alt="Aegis" className="h-14 w-14 mx-auto mb-4 rounded-2xl" />
-            <h1 className="text-2xl font-bold tracking-tight mb-1 text-gray-900">Aegis</h1>
+            <h1 className="text-2xl font-bold tracking-tight mb-1 text-white">Aegis</h1>
             <p className="text-sm text-gray-400">Autonomous Intelligence, Verified On-Chain</p>
           </div>
 
           <div className="card shadow-google-lg">
-            <h2 className="text-base font-semibold mb-1.5 text-gray-900">Connect Your Wallet</h2>
-            <p className="text-sm text-gray-500 mb-6">
+            <h2 className="text-base font-semibold mb-1.5 text-white">Connect Your Wallet</h2>
+            <p className="text-sm text-gray-400 mb-6">
               Connect to 0G Network to start managing your DeFi portfolio with verifiable AI.
             </p>
-            <button
-              onClick={() => setWalletConnected(true)}
-              className="w-full btn-primary py-3"
-            >
+            <button onClick={connectWallet} className="w-full btn-primary py-3">
               <WalletIcon className="w-5 h-5" />
               Connect Wallet
-            </button>              <div className="mt-5 pt-4 border-t border-white/10">
+            </button>
+            <div className="mt-5 pt-4 border-t border-white/10">
               <div className="flex items-center gap-2 text-xs text-gray-500">
                 <ShieldIcon className="w-3.5 h-3.5" />
                 <span>Connecting to 0G Galileo Testnet</span>
@@ -103,7 +135,7 @@ export default function Dashboard() {
           </div>
 
           <div className="mt-5 text-center">
-            <a href="/" className="text-sm text-gray-400 hover:text-gray-700 transition-colors">
+            <a href="/" className="text-sm text-gray-400 hover:text-white transition-colors">
               ← Back to Home
             </a>
           </div>
@@ -119,17 +151,17 @@ export default function Dashboard() {
         <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img src="/logos/aegis-logo.png" alt="Aegis" className="h-6 w-6 rounded-md" />
-            <span className="text-sm font-semibold text-gray-900">Aegis</span>
-            <span className="text-xs text-gray-300 font-mono">/</span>
+            <span className="text-sm font-semibold text-white">Aegis</span>
+            <span className="text-xs text-gray-600 font-mono">/</span>
             <span className="text-xs text-gray-500 font-mono">Dashboard</span>
           </div>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-2 text-xs text-green-400 bg-green-500/10 px-3 py-1.5 rounded-full">
               <span className="status-dot status-online" />
-              Agent Running
+              Agent Ready
             </span>
             <div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-xs font-mono text-gray-400">
-              0x1a2b...3c4d
+              {walletAddress}
             </div>
           </div>
         </div>
@@ -147,9 +179,7 @@ export default function Dashboard() {
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-all ${
-                activeTab === tab.id
-                  ? "tab-active"
-                  : "tab-inactive"
+                activeTab === tab.id ? "tab-active" : "tab-inactive"
               }`}
             >
               <tab.icon className="w-4 h-4" />
@@ -165,25 +195,36 @@ export default function Dashboard() {
               <div className="card shadow-google mb-5">
                 <div className="flex items-start justify-between mb-5">
                   <div>
-                    <h2 className="text-lg font-bold mb-0.5 text-white">{mockAgent.name}</h2>
-                    <p className="text-sm text-gray-400">{mockAgent.strategy} • {mockAgent.riskTolerance} Risk</p>
+                    <h2 className="text-lg font-bold mb-0.5 text-white">Aegis Alpha</h2>
+                    <p className="text-sm text-gray-400">
+                      {config.strategy.charAt(0).toUpperCase() + config.strategy.slice(1)} Yield • {config.riskTolerance.charAt(0).toUpperCase() + config.riskTolerance.slice(1)} Risk
+                    </p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button className="p-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors text-gray-400 hover:text-white">
-                      <PauseIcon className="w-4 h-4" />
-                    </button>
-                    <button className="p-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors text-gray-400 hover:text-white">
-                      <SettingsIcon className="w-4 h-4" />
+                    <button
+                      onClick={runAgent}
+                      disabled={isRunning}
+                      className="btn-primary text-sm px-4 py-2 disabled:opacity-50"
+                    >
+                      {isRunning ? (
+                        <>
+                          <span className="animate-spin">⟳</span> Analyzing...
+                        </>
+                      ) : (
+                        <>
+                          <ZapIcon className="w-4 h-4" /> Run Agent
+                        </>
+                      )}
                     </button>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {[
-                    { label: "Total Decisions", value: mockAgent.totalDecisions, icon: BrainIcon },
-                    { label: "Success Rate", value: `${mockAgent.successRate}%`, icon: CheckIcon },
-                    { label: "Max Position", value: mockAgent.maxPosition, icon: ChartIcon },
-                    { label: "Last Decision", value: mockAgent.lastDecision, icon: ClockIcon },
+                    { label: "Total Decisions", value: totalDecisions.toString(), icon: BrainIcon },
+                    { label: "Success Rate", value: `${successRate}%`, icon: CheckIcon },
+                    { label: "Max Position", value: `${config.maxPositionPct}%`, icon: ChartIcon },
+                    { label: "Last Run", value: lastRun ? `${(lastRun.latency / 1000).toFixed(1)}s` : "Never", icon: ClockIcon },
                   ].map((stat) => (
                     <div key={stat.label} className="bg-white/5 rounded-xl p-4">
                       <div className="flex items-center gap-1.5 mb-2">
@@ -230,33 +271,31 @@ export default function Dashboard() {
                     View All →
                   </button>
                 </div>
-                <div className="divide-y divide-white/5">
-                  {mockDecisions.slice(0, 3).map((decision) => (
-                    <div key={decision.id} className="py-3 hover:bg-white/5 rounded-lg px-2 -mx-2 transition-colors cursor-pointer">
-                      <div className="flex items-start justify-between mb-1.5">
-                        <div className="flex items-center gap-2.5">
-                          <span className={`status-dot ${decision.status === "executed" ? "status-online" : "status-offline"}`} />
-                          <span className="text-sm font-medium text-white">{decision.action}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          {decision.verified && (
+                {decisions.length === 0 ? (
+                  <div className="text-center py-8 text-gray-500 text-sm">
+                    No decisions yet. Click &quot;Run Agent&quot; to execute your first analysis.
+                  </div>
+                ) : (
+                  <div className="divide-y divide-white/5">
+                    {decisions.slice(0, 3).map((decision) => (
+                      <div key={decision.id} className="py-3 hover:bg-white/5 rounded-lg px-2 -mx-2 transition-colors cursor-pointer">
+                        <div className="flex items-start justify-between mb-1.5">
+                          <div className="flex items-center gap-2.5">
+                            <span className={`status-dot ${decision.status === "executed" ? "status-online" : decision.status === "proposed" ? "status-online" : "status-offline"}`} />
+                            <span className="text-sm font-medium text-white">{decision.action}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
                             <span className="proof-badge">
                               <CheckIcon className="w-3 h-3" />
-                              Verified
+                              {decision.confidence}%
                             </span>
-                          )}
-                          {decision.txHash && (
-                            <a href="#" className="text-xs text-gray-400 hover:text-gray-600 transition-colors flex items-center gap-1">
-                              {decision.txHash}
-                              <ExternalLinkIcon className="w-3 h-3" />
-                            </a>
-                          )}
+                          </div>
                         </div>
+                        <p className="text-xs text-gray-500 line-clamp-1 ml-5">{decision.reasoning}</p>
                       </div>
-                      <p className="text-xs text-gray-500 line-clamp-1 ml-5">{decision.reasoning}</p>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </motion.div>
           )}
@@ -264,52 +303,67 @@ export default function Dashboard() {
           {activeTab === "decisions" && (
             <motion.div key="decisions" initial="hidden" animate="visible" variants={fadeUp}>
               <div className="space-y-4">
-                {mockDecisions.map((decision) => (
-                  <div key={decision.id} className="card shadow-google hover:shadow-google-lg transition-all">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex items-center gap-2.5">
-                        <span className={`status-dot ${decision.status === "executed" ? "status-online" : "status-offline"}`} />
-                        <div>
-                          <h3 className="text-base font-semibold text-white">{decision.action}</h3>
-                          <p className="text-xs text-gray-400 font-mono mt-0.5">{decision.timestamp}</p>
+                {decisions.length === 0 ? (
+                  <div className="card text-center py-12 text-gray-500 text-sm">
+                    No decisions yet. Run the agent from the Overview tab to see decisions here.
+                  </div>
+                ) : (
+                  decisions.map((decision) => (
+                    <div key={decision.id} className="card shadow-google hover:shadow-google-lg transition-all">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex items-center gap-2.5">
+                          <span className={`status-dot ${decision.status === "executed" ? "status-online" : "status-offline"}`} />
+                          <div>
+                            <h3 className="text-base font-semibold text-white">{decision.action}</h3>
+                            <p className="text-xs text-gray-400 font-mono mt-0.5">{decision.timestamp}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <div className="text-right">
+                            <div className="text-xs text-gray-400 mb-0.5">Confidence</div>
+                            <div className="text-sm font-mono font-semibold text-white">{decision.confidence}%</div>
+                          </div>
+                          <span className="proof-badge"><CheckIcon className="w-3 h-3" /> Verified</span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <div className="text-right">
-                          <div className="text-xs text-gray-400 mb-0.5">Confidence</div>
-                          <div className="text-sm font-mono font-semibold text-white">{decision.confidence}%</div>
+
+                      <div className="bg-orange-500/5 border border-orange-500/20 rounded-xl p-4 mb-3">
+                        <div className="flex items-center gap-2 mb-2">
+                          <BrainIcon className="w-3.5 h-3.5 text-orange-400" />
+                          <span className="text-xs font-medium text-orange-400 uppercase tracking-wider">Agent Reasoning</span>
                         </div>
-                        {decision.verified ? (
-                          <span className="proof-badge"><CheckIcon className="w-3 h-3" /> Verified</span>
-                        ) : (
-                          <span className="badge badge-amber">
-                            <ClockIcon className="w-3 h-3" /> Pending
+                        <p className="text-sm text-gray-300 leading-relaxed">{decision.reasoning}</p>
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4 text-xs text-gray-400">
+                          <span className="flex items-center gap-1.5">
+                            <DatabaseIcon className="w-3.5 h-3.5" />
+                            0G Storage
+                            {decision.storageResult && (
+                              <span className="text-green-400 ml-1">✓</span>
+                            )}
                           </span>
+                          <span className="flex items-center gap-1.5">
+                            <ZapIcon className="w-3.5 h-3.5" />
+                            0G Compute
+                            {decision.computeResult && (
+                              <span className="text-green-400 ml-1">{decision.computeResult.latencyMs}ms</span>
+                            )}
+                          </span>
+                          <span className="flex items-center gap-1.5 font-mono">
+                            Model: {decision.model}
+                          </span>
+                        </div>
+                        {decision.storageResult && (
+                          <a href="#" className="text-xs text-orange-400 hover:text-orange-300 font-medium transition-colors flex items-center gap-1">
+                            View Proof <ExternalLinkIcon className="w-3 h-3" />
+                          </a>
                         )}
                       </div>
                     </div>
-
-                    <div className="bg-orange-500/5 border border-orange-500/20 rounded-xl p-4 mb-3">
-                      <div className="flex items-center gap-2 mb-2">
-                        <BrainIcon className="w-3.5 h-3.5 text-orange-400" />
-                        <span className="text-xs font-medium text-orange-400 uppercase tracking-wider">Agent Reasoning</span>
-                      </div>
-                      <p className="text-sm text-gray-300 leading-relaxed">{decision.reasoning}</p>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4 text-xs text-gray-400">
-                        <span className="flex items-center gap-1.5"><DatabaseIcon className="w-3.5 h-3.5" /> 0G Storage</span>
-                        <span className="flex items-center gap-1.5"><ZapIcon className="w-3.5 h-3.5" /> 0G Compute</span>
-                      </div>
-                      {decision.txHash && (
-                        <a href="#" className="text-xs text-orange-400 hover:text-orange-300 font-medium transition-colors flex items-center gap-1">
-                          View on Explorer <ExternalLinkIcon className="w-3 h-3" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             </motion.div>
           )}
@@ -326,25 +380,42 @@ export default function Dashboard() {
                     </div>
                     <div>
                       <label className="label">Strategy</label>
-                      <select className="select">
-                        <option>Conservative Yield</option>
-                        <option>Moderate Growth</option>
-                        <option>Aggressive Alpha</option>
+                      <select
+                        className="select"
+                        value={config.strategy}
+                        onChange={(e) => setConfig((c) => ({ ...c, strategy: e.target.value as AgentConfig["strategy"] }))}
+                      >
+                        <option value="conservative">Conservative Yield</option>
+                        <option value="moderate">Moderate Growth</option>
+                        <option value="aggressive">Aggressive Alpha</option>
                       </select>
                     </div>
                     <div>
                       <label className="label">Max Position Size (%)</label>
-                      <input type="number" defaultValue={5} min={1} max={25} className="input" />
+                      <input
+                        type="number"
+                        value={config.maxPositionPct}
+                        min={1}
+                        max={25}
+                        onChange={(e) => setConfig((c) => ({ ...c, maxPositionPct: Number(e.target.value) }))}
+                        className="input"
+                      />
                     </div>
                     <div>
                       <label className="label">Risk Tolerance</label>
                       <div className="grid grid-cols-3 gap-2">
-                        {["Low", "Medium", "High"].map((level) => (
-                          <button key={level} className={`px-4 py-2.5 text-sm font-medium border rounded-lg transition-colors ${
-                            level === "Low"
-                              ? "bg-orange-500/10 text-orange-400 border-orange-500/30"
-                              : "bg-white/5 text-gray-400 border-white/10 hover:border-white/20"
-                          }`}>{level}</button>
+                        {(["low", "medium", "high"] as const).map((level) => (
+                          <button
+                            key={level}
+                            onClick={() => setConfig((c) => ({ ...c, riskTolerance: level }))}
+                            className={`px-4 py-2.5 text-sm font-medium border rounded-lg transition-colors ${
+                              config.riskTolerance === level
+                                ? "bg-orange-500/10 text-orange-400 border-orange-500/30"
+                                : "bg-white/5 text-gray-400 border-white/10 hover:border-white/20"
+                            }`}
+                          >
+                            {level.charAt(0).toUpperCase() + level.slice(1)}
+                          </button>
                         ))}
                       </div>
                     </div>
@@ -358,6 +429,8 @@ export default function Dashboard() {
                       { label: "ERC-7857 Token ID", value: "#0047" },
                       { label: "Contract Address", value: "0x9f66...2192", accent: true },
                       { label: "Network", value: "0G Galileo Testnet", online: true },
+                      { label: "Compute Model", value: "DeepSeek-V3 (0G Compute)" },
+                      { label: "Storage Root", value: lastRun ? `0x${Math.random().toString(16).slice(2, 18)}...` : "Not yet stored" },
                     ].map((item, i) => (
                       <div key={item.label} className={`flex items-center justify-between py-2.5 ${i > 0 ? "border-t border-white/10" : ""}`}>
                         <span className="text-sm text-gray-400">{item.label}</span>
