@@ -80,7 +80,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16 bg-gray-900">
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16 bg-black">
         {/* Video Background */}
         <motion.video
           autoPlay
@@ -185,7 +185,7 @@ export default function Home() {
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" className="py-24 px-6 bg-gray-950">
+      <section id="how-it-works" className="py-24 px-6 bg-black">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"
@@ -250,7 +250,7 @@ export default function Home() {
               <motion.div
                 key={item.step}
                 variants={scaleIn}
-                className="bg-gray-900 border border-gray-800 p-6 group hover:border-gray-700 transition-all duration-200"
+                className="bg-neutral-900 border border-neutral-800 p-6 group hover:border-neutral-700 transition-all duration-200"
               >
                 <div className="flex items-center gap-3 mb-6">
                   <span className="text-sm font-bold font-mono text-gray-600 group-hover:text-blue-400 transition-colors">
@@ -280,7 +280,7 @@ export default function Home() {
       </section>
 
       {/* Features */}
-      <section id="features" className="py-24 px-6 bg-gray-900">
+      <section id="features" className="py-24 px-6 bg-black">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"
@@ -353,7 +353,7 @@ export default function Home() {
               <motion.div
                 key={item.title}
                 variants={scaleIn}
-                className="bg-gray-950 border border-gray-800 p-6 hover:border-gray-700 transition-all duration-200"
+                className="bg-neutral-900 border border-neutral-800 p-6 hover:border-neutral-700 transition-all duration-200"
               >
                 <div className="flex items-center justify-between mb-5">
                   <div className={`w-11 h-11 flex items-center justify-center rounded-xl ${
@@ -380,7 +380,7 @@ export default function Home() {
       </section>
 
       {/* Stats */}
-      <section className="py-20 px-6 bg-gray-950">
+      <section className="py-20 px-6 bg-black">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"
@@ -398,7 +398,7 @@ export default function Home() {
               <motion.div
                 key={stat.label}
                 variants={fadeUp}
-                className="bg-gray-900 border border-gray-800 p-6 text-center"
+                className="bg-neutral-900 border border-neutral-800 p-6 text-center"
               >
                 <stat.icon className="w-4 h-4 text-gray-600 mx-auto mb-3" />
                 <div className="text-2xl md:text-3xl font-bold font-mono mb-1 text-white">
@@ -415,7 +415,7 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="py-28 px-6 bg-gray-900 relative overflow-hidden">
+      <section className="py-28 px-6 bg-black relative overflow-hidden">
         <div className="absolute inset-0 opacity-10" style={{
           backgroundImage: "radial-gradient(circle, #3b82f6 1px, transparent 1px)",
           backgroundSize: "24px 24px"
@@ -451,7 +451,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-6 border-t border-gray-800 bg-gray-950">
+      <footer className="py-8 px-6 border-t border-neutral-800 bg-black">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
             <img src="/logos/aegis-logo.png" alt="Aegis" className="h-6 w-6 rounded-md" />
