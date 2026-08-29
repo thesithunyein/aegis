@@ -48,7 +48,7 @@ export default function Home() {
     target: heroRef,
     offset: ["start start", "end start"],
   });
-  const videoOpacity = useTransform(scrollYProgress, [0, 0.5], [0.25, 0.1]);
+  const videoOpacity = useTransform(scrollYProgress, [0, 0.5], [0.55, 0.3]);
   const textY = useTransform(scrollYProgress, [0, 1], [0, 30]);
 
   return (
