@@ -184,11 +184,8 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Dark to light transition */}
-      <div className="h-32 bg-gradient-to-b from-gray-900 to-white" />
-
       {/* How It Works */}
-      <section id="how-it-works" className="py-24 px-6 bg-white">
+      <section id="how-it-works" className="py-24 px-6 bg-gray-950">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"
@@ -199,19 +196,19 @@ export default function Home() {
           >
             <motion.span
               variants={fadeUp}
-              className="text-xs font-medium text-blue-600 uppercase tracking-wider mb-3 block"
+              className="text-xs font-medium text-blue-400 uppercase tracking-wider mb-3 block"
             >
               Process
             </motion.span>
             <motion.h2
               variants={fadeUp}
-              className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-gray-900"
+              className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-white"
             >
               How It Works
             </motion.h2>
             <motion.p
               variants={fadeUp}
-              className="text-gray-500 max-w-lg mx-auto text-base"
+              className="text-gray-400 max-w-lg mx-auto text-base"
             >
               Three steps to autonomous, verifiable DeFi management.
             </motion.p>
@@ -253,27 +250,27 @@ export default function Home() {
               <motion.div
                 key={item.step}
                 variants={scaleIn}
-                className="card group hover:shadow-google-lg transition-all duration-200"
+                className="bg-gray-900 border border-gray-800 p-6 group hover:border-gray-700 transition-all duration-200"
               >
                 <div className="flex items-center gap-3 mb-6">
-                  <span className="text-sm font-bold font-mono text-gray-300 group-hover:text-blue-500 transition-colors">
+                  <span className="text-sm font-bold font-mono text-gray-600 group-hover:text-blue-400 transition-colors">
                     {item.step}
                   </span>
-                  <div className="flex-1 h-px bg-gray-100 group-hover:bg-blue-100 transition-colors" />
+                  <div className="flex-1 h-px bg-gray-800 group-hover:bg-blue-900 transition-colors" />
                 </div>
 
                 <div className={`w-11 h-11 flex items-center justify-center rounded-xl mb-5 transition-colors ${
                   item.color === "green"
-                    ? "bg-green-50 text-green-600"
+                    ? "bg-green-500/10 text-green-400"
                     : item.color === "purple"
-                    ? "bg-purple-50 text-purple-600"
-                    : "bg-blue-50 text-blue-600"
+                    ? "bg-purple-500/10 text-purple-400"
+                    : "bg-blue-500/10 text-blue-400"
                 }`}>
                   <item.icon className="w-5 h-5" />
                 </div>
 
-                <h3 className="text-lg font-semibold mb-2 text-gray-900">{item.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">
+                <h3 className="text-lg font-semibold mb-2 text-white">{item.title}</h3>
+                <p className="text-sm text-gray-400 leading-relaxed">
                   {item.description}
                 </p>
               </motion.div>
@@ -283,7 +280,7 @@ export default function Home() {
       </section>
 
       {/* Features */}
-      <section id="features" className="py-24 px-6">
+      <section id="features" className="py-24 px-6 bg-gray-900">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"
@@ -294,19 +291,19 @@ export default function Home() {
           >
             <motion.span
               variants={fadeUp}
-              className="text-xs font-medium text-blue-600 uppercase tracking-wider mb-3 block"
+              className="text-xs font-medium text-blue-400 uppercase tracking-wider mb-3 block"
             >
               Capabilities
             </motion.span>
             <motion.h2
               variants={fadeUp}
-              className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-gray-900"
+              className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-white"
             >
               Built on 0G
             </motion.h2>
             <motion.p
               variants={fadeUp}
-              className="text-gray-500 max-w-lg mx-auto text-base"
+              className="text-gray-400 max-w-lg mx-auto text-base"
             >
               Every layer of the 0G stack, working together for verifiable AI.
             </motion.p>
@@ -356,30 +353,24 @@ export default function Home() {
               <motion.div
                 key={item.title}
                 variants={scaleIn}
-                className="card hover:shadow-google-lg transition-all duration-200"
+                className="bg-gray-950 border border-gray-800 p-6 hover:border-gray-700 transition-all duration-200"
               >
                 <div className="flex items-center justify-between mb-5">
                   <div className={`w-11 h-11 flex items-center justify-center rounded-xl ${
                     item.color === "green"
-                      ? "bg-green-50 text-green-600"
+                      ? "bg-green-500/10 text-green-400"
                       : item.color === "purple"
-                      ? "bg-purple-50 text-purple-600"
-                      : "bg-blue-50 text-blue-600"
+                      ? "bg-purple-500/10 text-purple-400"
+                      : "bg-blue-500/10 text-blue-400"
                   }`}>
                     <item.icon className="w-5 h-5" />
                   </div>
-                  <span className={`badge ${
-                    item.color === "green"
-                      ? "badge-green"
-                      : item.color === "purple"
-                      ? "badge-blue"
-                      : "badge-blue"
-                  }`}>
+                  <span className="text-xs font-mono px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
                     {item.tag}
                   </span>
                 </div>
-                <h3 className="text-lg font-semibold mb-2 text-gray-900">{item.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">
+                <h3 className="text-lg font-semibold mb-2 text-white">{item.title}</h3>
+                <p className="text-sm text-gray-400 leading-relaxed">
                   {item.description}
                 </p>
               </motion.div>
@@ -389,7 +380,7 @@ export default function Home() {
       </section>
 
       {/* Stats */}
-      <section className="py-20 px-6 bg-gray-50">
+      <section className="py-20 px-6 bg-gray-950">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"
@@ -407,14 +398,14 @@ export default function Home() {
               <motion.div
                 key={stat.label}
                 variants={fadeUp}
-                className="card text-center"
+                className="bg-gray-900 border border-gray-800 p-6 text-center"
               >
-                <stat.icon className="w-4 h-4 text-gray-300 mx-auto mb-3" />
-                <div className="text-2xl md:text-3xl font-bold font-mono mb-1 text-gray-900">
+                <stat.icon className="w-4 h-4 text-gray-600 mx-auto mb-3" />
+                <div className="text-2xl md:text-3xl font-bold font-mono mb-1 text-white">
                   {stat.value}
-                  <span className="text-blue-600">{stat.suffix}</span>
+                  <span className="text-blue-400">{stat.suffix}</span>
                 </div>
-                <div className="text-xs text-gray-400 uppercase tracking-wider font-medium">
+                <div className="text-xs text-gray-500 uppercase tracking-wider font-medium">
                   {stat.label}
                 </div>
               </motion.div>
@@ -424,10 +415,10 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="py-28 px-6 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20" style={{
-          backgroundImage: "radial-gradient(circle, #d1d5db 1px, transparent 1px)",
-          backgroundSize: "20px 20px"
+      <section className="py-28 px-6 bg-gray-900 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: "radial-gradient(circle, #3b82f6 1px, transparent 1px)",
+          backgroundSize: "24px 24px"
         }} />
 
         <motion.div
@@ -439,13 +430,13 @@ export default function Home() {
         >
           <motion.h2
             variants={fadeUp}
-            className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-gray-900"
+            className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-white"
           >
             Start Building Your Agent
           </motion.h2>
           <motion.p
             variants={fadeUp}
-            className="text-gray-500 mb-10 max-w-md mx-auto text-base"
+            className="text-gray-400 mb-10 max-w-md mx-auto text-base"
           >
             Connect your wallet, configure your strategy, and let Aegis manage
             your DeFi portfolio with verifiable AI.
@@ -460,24 +451,24 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-6 border-t border-gray-100">
+      <footer className="py-8 px-6 border-t border-gray-800 bg-gray-950">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
             <img src="/logos/aegis-logo.png" alt="Aegis" className="h-6 w-6 rounded-md" />
-            <span className="text-sm font-medium text-gray-900">Aegis</span>
+            <span className="text-sm font-medium text-white">Aegis</span>
           </div>
-          <div className="flex items-center gap-6 text-sm text-gray-400">
-            <a href="#" className="hover:text-gray-900 transition-colors">
+          <div className="flex items-center gap-6 text-sm text-gray-500">
+            <a href="#" className="hover:text-white transition-colors">
               Documentation
             </a>
-            <a href="#" className="hover:text-gray-900 transition-colors">
+            <a href="#" className="hover:text-white transition-colors">
               GitHub
             </a>
-            <a href="#" className="hover:text-gray-900 transition-colors">
+            <a href="#" className="hover:text-white transition-colors">
               Twitter
             </a>
           </div>
-          <div className="flex items-center gap-2 text-xs text-gray-400">
+          <div className="flex items-center gap-2 text-xs text-gray-500">
             <GlobeIcon className="w-3.5 h-3.5" />
             Built on 0G Network
           </div>
