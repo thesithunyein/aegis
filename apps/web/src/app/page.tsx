@@ -141,32 +141,29 @@ export default function Home() {
               Launch Agent
               <ArrowIcon className="w-4 h-4" />
             </a>
-            <a href="#how-it-works" className="inline-flex items-center gap-2 px-8 py-3 bg-white/15 backdrop-blur-sm text-white text-base font-medium rounded-full border border-white/20 hover:bg-white/25 transition-all">
+            <a href="#how-it-works" className="inline-flex items-center gap-2 px-8 py-3 bg-white text-gray-900 text-base font-medium rounded-full hover:bg-white/90 transition-all shadow-lg">
               Learn More
             </a>
           </motion.div>
 
           <motion.div
             variants={fadeUp}
-            className="flex flex-wrap items-center justify-center gap-6 md:gap-8 text-xs text-white/50 uppercase tracking-wider font-medium"
-            style={{ textShadow: "0 1px 10px rgba(0,0,0,0.4)" }}
+            className="flex flex-wrap items-center justify-center gap-4 md:gap-6"
           >
-            <span className="flex items-center gap-1.5">
-              <ShieldIcon className="w-3.5 h-3.5" />
-              TEE Verified
-            </span>
-            <span className="flex items-center gap-1.5">
-              <DatabaseIcon className="w-3.5 h-3.5" />
-              0G Storage
-            </span>
-            <span className="flex items-center gap-1.5">
-              <LinkIcon className="w-3.5 h-3.5" />
-              On-Chain
-            </span>
-            <span className="flex items-center gap-1.5">
-              <CodeIcon className="w-3.5 h-3.5" />
-              Open Source
-            </span>
+            {[
+              { label: "TEE Verified", icon: ShieldIcon },
+              { label: "0G Storage", icon: DatabaseIcon },
+              { label: "On-Chain", icon: LinkIcon },
+              { label: "Open Source", icon: CodeIcon },
+            ].map((item) => (
+              <span
+                key={item.label}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/90 backdrop-blur-sm rounded-full text-xs font-medium text-gray-600 shadow-sm"
+              >
+                <item.icon className="w-3.5 h-3.5 text-blue-500" />
+                {item.label}
+              </span>
+            ))}
           </motion.div>
         </motion.div>
 
@@ -175,13 +172,13 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10"
         >
-          <div className="w-5 h-8 border-2 border-gray-300 rounded-full flex items-start justify-center p-1">
+          <div className="w-5 h-8 border-2 border-white/40 rounded-full flex items-start justify-center p-1">
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              className="w-1 h-2 bg-gray-400 rounded-full"
+              className="w-1 h-2 bg-white/60 rounded-full"
             />
           </div>
         </motion.div>
