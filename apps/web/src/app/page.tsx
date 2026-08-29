@@ -160,7 +160,7 @@ export default function Home() {
                 key={item.label}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/90 backdrop-blur-sm rounded-full text-xs font-medium text-gray-600 shadow-sm"
               >
-                <item.icon className="w-3.5 h-3.5 text-blue-500" />
+                <item.icon className="w-3.5 h-3.5 text-orange-400" />
                 {item.label}
               </span>
             ))}
@@ -196,7 +196,7 @@ export default function Home() {
           >
             <motion.span
               variants={fadeUp}
-              className="text-xs font-medium text-blue-400 uppercase tracking-wider mb-3 block"
+              className="text-xs font-medium text-orange-400 uppercase tracking-wider mb-3 block"
             >
               Process
             </motion.span>
@@ -228,7 +228,7 @@ export default function Home() {
                 description:
                   "Link your wallet and set your rules. Max position size, risk tolerance, allowed tokens. You stay in control.",
                 icon: LockIcon,
-                color: "blue",
+                color: "orange",
               },
               {
                 step: "02",
@@ -253,10 +253,10 @@ export default function Home() {
                 className="bg-neutral-900 border border-neutral-800 p-6 group hover:border-neutral-700 transition-all duration-200"
               >
                 <div className="flex items-center gap-3 mb-6">
-                  <span className="text-sm font-bold font-mono text-gray-600 group-hover:text-blue-400 transition-colors">
+                  <span className="text-sm font-bold font-mono text-gray-600 group-hover:text-orange-400 transition-colors">
                     {item.step}
                   </span>
-                  <div className="flex-1 h-px bg-gray-800 group-hover:bg-blue-900 transition-colors" />
+                  <div className="flex-1 h-px bg-gray-800 group-hover:bg-orange-900 transition-colors" />
                 </div>
 
                 <div className={`w-11 h-11 flex items-center justify-center rounded-xl mb-5 transition-colors ${
@@ -264,7 +264,7 @@ export default function Home() {
                     ? "bg-green-500/10 text-green-400"
                     : item.color === "purple"
                     ? "bg-purple-500/10 text-purple-400"
-                    : "bg-blue-500/10 text-blue-400"
+                    : "bg-orange-500/10 text-orange-400"
                 }`}>
                   <item.icon className="w-5 h-5" />
                 </div>
@@ -291,7 +291,7 @@ export default function Home() {
           >
             <motion.span
               variants={fadeUp}
-              className="text-xs font-medium text-blue-400 uppercase tracking-wider mb-3 block"
+              className="text-xs font-medium text-orange-400 uppercase tracking-wider mb-3 block"
             >
               Capabilities
             </motion.span>
@@ -323,7 +323,7 @@ export default function Home() {
                   "Every AI decision runs on 0G Compute inside a Trusted Execution Environment. Cryptographic proof that the model ran, with your data, and produced this exact output.",
                 icon: BrainIcon,
                 tag: "0G Compute",
-                color: "blue",
+                color: "orange",
               },
               {
                 title: "Persistent Memory",
@@ -339,7 +339,7 @@ export default function Home() {
                   "Every proposed action settles on 0G Chain. Smart contracts enforce your rules. No silent failures. No hidden trades.",
                 icon: LinkIcon,
                 tag: "0G Chain",
-                color: "blue",
+                color: "orange",
               },
               {
                 title: "Portable Identity",
@@ -361,11 +361,11 @@ export default function Home() {
                       ? "bg-green-500/10 text-green-400"
                       : item.color === "purple"
                       ? "bg-purple-500/10 text-purple-400"
-                      : "bg-blue-500/10 text-blue-400"
+                      : "bg-orange-500/10 text-orange-400"
                   }`}>
                     <item.icon className="w-5 h-5" />
                   </div>
-                  <span className="text-xs font-mono px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                  <span className="text-xs font-mono px-3 py-1 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20">
                     {item.tag}
                   </span>
                 </div>
@@ -403,7 +403,7 @@ export default function Home() {
                 <stat.icon className="w-4 h-4 text-gray-600 mx-auto mb-3" />
                 <div className="text-2xl md:text-3xl font-bold font-mono mb-1 text-white">
                   {stat.value}
-                  <span className="text-blue-400">{stat.suffix}</span>
+                  <span className="text-orange-400">{stat.suffix}</span>
                 </div>
                 <div className="text-xs text-gray-500 uppercase tracking-wider font-medium">
                   {stat.label}
@@ -417,7 +417,7 @@ export default function Home() {
       {/* CTA */}
       <section className="py-28 px-6 bg-black relative overflow-hidden">
         <div className="absolute inset-0 opacity-10" style={{
-          backgroundImage: "radial-gradient(circle, #3b82f6 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, #f97316 1px, transparent 1px)",
           backgroundSize: "24px 24px"
         }} />
 
@@ -442,7 +442,7 @@ export default function Home() {
             your DeFi portfolio with verifiable AI.
           </motion.p>
           <motion.div variants={fadeUp}>
-            <a href="/dashboard" className="btn-primary text-base px-10 py-3.5">
+            <a href="/dashboard" className="inline-flex items-center gap-2 px-10 py-3.5 bg-gradient-to-r from-orange-500 to-red-500 text-white text-base font-semibold rounded-full hover:from-orange-600 hover:to-red-600 transition-all shadow-lg shadow-orange-500/25">
               Launch App
               <ArrowIcon className="w-4 h-4" />
             </a>
