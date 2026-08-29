@@ -4,13 +4,17 @@
  * This is the REAL integration with 0G Compute network.
  * Uses the Router path which provides a single OpenAI-compatible endpoint.
  * 
- * Docs: https://docs.0g.ai/developer-hub/building-on-0g/compute-network/inference
+ * Docs: https://docs.0g.ai/developer-hub/building-on-0g/compute-network/router/overview
+ * 
+ * Mainnet Router: https://router-api.0g.ai/v1
+ * Testnet Router: https://router-api-testnet.integratenetwork.work/v1
  */
 
 import OpenAI from "openai";
 
 const API_KEY = process.env.ZERO_G_COMPUTE_API_KEY || "";
-const BASE_URL = process.env.ZERO_G_COMPUTE_BASE_URL || "https://rpc.0g.ai";
+// Router endpoint — OpenAI-compatible
+const BASE_URL = "https://router-api.0g.ai/v1";
 
 export interface ComputeResult {
   model: string;
@@ -39,7 +43,7 @@ export async function runInference(
   }
 
   const client = new OpenAI({
-    baseURL: `${BASE_URL}/v1/proxy`,
+    baseURL: BASE_URL,
     apiKey: API_KEY,
   });
 
@@ -76,7 +80,7 @@ export async function listModels(): Promise<string[]> {
   }
 
   const client = new OpenAI({
-    baseURL: `${BASE_URL}/v1/proxy`,
+    baseURL: BASE_URL,
     apiKey: API_KEY,
   });
 
