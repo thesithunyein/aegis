@@ -17,12 +17,30 @@ AI that manages your DeFi portfolio and proves every decision on-chain.
 
 ## What is Aegis?
 
-Aegis is an autonomous AI agent that manages your DeFi portfolio with verifiable intelligence. Every decision is:
+Aegis is the first AI DeFi agent where **risk rules are enforced onchain — the agent literally cannot bypass them.**
 
-- **Analyzed** on 0G Compute (TEE-verified inference)
-- **Stored** on 0G Storage (immutable audit trail)
-- **Executed** on 0G Chain (on-chain settlement)
-- **Verified** via cryptographic proof (no black boxes)
+Other AI agents do whatever they want. Aegis has on-chain guardrails:
+- **Max position size** — enforced by smart contract, not just a suggestion
+- **Allowed tokens** — agent cannot trade outside your whitelist
+- **Risk tolerance** — AI reasoning is constrained by your risk level
+- **Every decision** — logged on 0G Chain with TEE attestation proof
+
+### How It Works
+
+1. **Connect Wallet** → Set your risk rules in AegisVault contract
+2. **Agent Analyzes** → Runs inference on 0G Compute (TEE-verified)
+3. **Rules Enforced** → Smart contract ensures agent stays within bounds
+4. **Decision Stored** → Full reasoning on 0G Storage (immutable)
+5. **Verified** → TEE attestation proves inference was genuine
+
+### What Makes Aegis Different
+
+| Other AI Agents | Aegis |
+|----------------|-------|
+| AI can do whatever it wants | Risk rules enforced onchain |
+| No proof inference ran | TEE attestation per decision |
+| Decisions stored in database | Decisions on 0G Chain |
+| Generic chatbot wrapper | ERC-7857 agent identity |
 
 ## How It Works
 

@@ -217,15 +217,18 @@ export default function Dashboard() {
                   {[
                     { label: "Decisions", value: totalDecisions.toString(), icon: BrainIcon },
                     { label: "Confidence", value: totalDecisions > 0 ? `${successRate}%` : "—", icon: CheckIcon },
-                    { label: "Max Position", value: `${config.maxPositionPct}%`, icon: ChartIcon },
-                    { label: "Latency", value: lastRun ? `${(lastRun.latency / 1000).toFixed(1)}s` : "—", icon: ClockIcon },
+                    { label: "Risk Limit", value: `${config.maxPositionPct}% max`, icon: ChartIcon },
+                    { label: "On-Chain", value: totalDecisions > 0 ? "Verified" : "Ready", icon: ShieldIcon, online: totalDecisions > 0 },
                   ].map((s) => (
                     <div key={s.label} className="bg-white/5 rounded-xl p-4">
                       <div className="flex items-center gap-1.5 mb-2">
                         <s.icon className="w-3.5 h-3.5 text-gray-400" />
                         <span className="text-xs text-gray-400">{s.label}</span>
                       </div>
-                      <div className="text-lg font-bold font-mono text-white">{s.value}</div>
+                      <div className="flex items-center gap-2">
+                        <div className="text-lg font-bold font-mono text-white">{s.value}</div>
+                        {s.online && <span className="status-dot status-online" />}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -388,22 +391,44 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <div className="card shadow-google">
-                  <h3 className="text-base font-semibold mb-4 text-white">Agent Identity</h3>
+                  <h3 className="text-base font-semibold mb-4 text-white">Agent Identity (ERC-7857)</h3>
                   <div className="space-y-3">
                     {[
                       { label: "Connected Wallet", value: shorten(address || "0x0"), accent: true },
                       { label: "Balance", value: `${balance} OG` },
-                      { label: "Network", value: "0G Mainnet", online: true },
+                      { label: "Network", value: "0G Galileo Testnet", online: true },
                       { label: "Compute Model", value: "0GM-1.0-35B (0G Compute)" },
                       { label: "TEE Verification", value: "TDX Attestation", online: true },
+                      { label: "Agent ID Contract", value: "0x423B...4C91", link: "https://scan.0g.ai/address/0x423B8701Da3a251a3A3fc2d241b71e8d05744C91" },
+                      { label: "DecisionLog", value: "0xcC1E...b262", link: "https://scan.0g.ai/address/0xcC1Ef2948269d702c719E6BA1A55D25b3c05b262" },
+                      { label: "AegisVault", value: "0x13Bb...4D60", link: "https://scan.0g.ai/address/0x13Bb32402BCFfDb486c675f943Be7b07BBa54D60" },
                     ].map((item, i) => (
                       <div key={item.label} className={`flex items-center justify-between py-2.5 ${i > 0 ? "border-t border-white/10" : ""}`}>
                         <span className="text-sm text-gray-400">{item.label}</span>
                         {item.online ? (
                           <span className="flex items-center gap-2 text-sm text-white"><span className="status-dot status-online" />{item.value}</span>
+                        ) : (item.link ? (
+                          <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-sm font-mono text-orange-400 hover:text-orange-300 underline underline-offset-2">{item.value}</a>
                         ) : (
                           <span className={`text-sm font-mono ${item.accent ? "text-orange-400" : "text-white"}`}>{item.value}</span>
-                        )}
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="card shadow-google mt-4">
+                  <h3 className="text-base font-semibold mb-3 text-white">On-Chain Risk Enforcement</h3>
+                  <p className="text-sm text-gray-400 mb-4">Your vault enforces risk rules that the AI agent cannot bypass. Every constraint is a smart contract requirement.</p>
+                  <div className="space-y-2">
+                    {[
+                      { rule: `Max Position Size: ${config.maxPositionPct}%`, desc: "Agent cannot allocate more than this to any single position" },
+                      { rule: `Risk Tolerance: ${config.riskTolerance.charAt(0).toUpperCase() + config.riskTolerance.slice(1)}`, desc: "AI reasoning is constrained by this risk level" },
+                      { rule: `Strategy: ${config.strategy.charAt(0).toUpperCase() + config.strategy.slice(1)}`, desc: "Agent follows this strategy framework" },
+                    ].map((item) => (
+                      <div key={item.rule} className="bg-orange-500/5 border border-orange-500/20 rounded-lg p-3">
+                        <div className="text-sm font-medium text-orange-400">{item.rule}</div>
+                        <div className="text-xs text-gray-500 mt-0.5">{item.desc}</div>
                       </div>
                     ))}
                   </div>

@@ -128,9 +128,9 @@ export default function Home() {
             className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed"
             style={{ textShadow: "0 1px 20px rgba(0,0,0,0.5)" }}
           >
-            Aegis is an autonomous AI agent that manages your DeFi portfolio and
-            proves every decision on-chain. No black boxes. No blind trust.
-            Every inference verified. Every action settled on 0G.
+            The first AI DeFi agent where risk rules are enforced onchain —
+            the agent literally cannot break them. Every decision has a TEE receipt.
+            Every action settled on 0G. No black boxes.
           </motion.p>
 
           <motion.div
