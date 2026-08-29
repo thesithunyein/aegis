@@ -399,9 +399,9 @@ export default function Dashboard() {
                       { label: "Network", value: "0G Galileo Testnet", online: true },
                       { label: "Compute Model", value: "0GM-1.0-35B (0G Compute)" },
                       { label: "TEE Verification", value: "TDX Attestation", online: true },
-                      { label: "Agent ID Contract", value: "0x423B...4C91", link: "https://scan.0g.ai/address/0x423B8701Da3a251a3A3fc2d241b71e8d05744C91" },
-                      { label: "DecisionLog", value: "0xcC1E...b262", link: "https://scan.0g.ai/address/0xcC1Ef2948269d702c719E6BA1A55D25b3c05b262" },
-                      { label: "AegisVault", value: "0x13Bb...4D60", link: "https://scan.0g.ai/address/0x13Bb32402BCFfDb486c675f943Be7b07BBa54D60" },
+                      { label: "Agent ID Contract", value: "0x423B...4C91", link: "https://chainscan-galileo.0g.ai/address/0x423B8701Da3a251a3A3fc2d241b71e8d05744C91" },
+                      { label: "DecisionLog", value: "0xcC1E...b262", link: "https://chainscan-galileo.0g.ai/address/0xcC1Ef2948269d702c719E6BA1A55D25b3c05b262" },
+                      { label: "AegisVault", value: "0x13Bb...4D60", link: "https://chainscan-galileo.0g.ai/address/0x13Bb32402BCFfDb486c675f943Be7b07BBa54D60" },
                     ].map((item, i) => (
                       <div key={item.label} className={`flex items-center justify-between py-2.5 ${i > 0 ? "border-t border-white/10" : ""}`}>
                         <span className="text-sm text-gray-400">{item.label}</span>

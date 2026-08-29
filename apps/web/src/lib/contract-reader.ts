@@ -15,7 +15,7 @@ export const ADDRESSES = {
   aegisVault: "0x13Bb32402BCFfDb486c675f943Be7b07BBa54D60",
 };
 
-const EXPLORER = "https://scan.0g.ai";
+const EXPLORER = "https://chainscan-galileo.0g.ai";
 
 /**
  * Make a raw JSON-RPC call

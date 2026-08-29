@@ -9,7 +9,7 @@ export const ZERO_G_CHAIN = {
   chainId: 16600,
   name: "0G Mainnet",
   rpcUrl: "https://evmrpc.0g.ai",
-  explorerUrl: "https://scan.0g.ai",
+  explorerUrl: "https://chainscan-galileo.0g.ai",
 };
 
 export const CONTRACTS = {
