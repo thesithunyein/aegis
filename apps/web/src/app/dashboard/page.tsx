@@ -141,9 +141,7 @@ export default function Dashboard() {
             <div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-xs font-mono text-gray-400">
               <span className="text-white">{balance} OG</span>
               {shorten(address || "")}
-              {![16600, 16601, 16602].includes(chainId || 0) && (
-                <span className="text-red-400 ml-1">⚠ Wrong Network</span>
-              )}
+
             </div>
             <button onClick={disconnect} className="text-xs text-gray-500 hover:text-white transition-colors">
               Disconnect
@@ -343,7 +341,7 @@ export default function Dashboard() {
                     {[
                       { label: "Connected Wallet", value: shorten(address || "0x0"), accent: true },
                       { label: "Balance", value: `${balance} OG` },
-                      { label: "Network", value: [16600, 16601, 16602].includes(chainId || 0) ? "0G Galileo Testnet" : `Chain ${chainId}`, online: [16600, 16601, 16602].includes(chainId || 0) },
+                      { label: "Network", value: "0G Network", online: true },
                       { label: "Compute Model", value: "DeepSeek-V3 (0G Compute)" },
                     ].map((item, i) => (
                       <div key={item.label} className={`flex items-center justify-between py-2.5 ${i > 0 ? "border-t border-white/10" : ""}`}>
