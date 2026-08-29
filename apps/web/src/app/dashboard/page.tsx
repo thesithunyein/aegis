@@ -110,7 +110,7 @@ export default function Dashboard() {
             <div className="mt-5 pt-4 border-t border-white/10">
               <div className="flex items-center gap-2 text-xs text-gray-500">
                 <ShieldIcon className="w-3.5 h-3.5" />
-                <span>0G Galileo Testnet (Chain ID: 16600)</span>
+                <span>0G Galileo Testnet (Chain ID: 16602)</span>
               </div>
             </div>
           </div>
@@ -141,7 +141,7 @@ export default function Dashboard() {
             <div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-xs font-mono text-gray-400">
               <span className="text-white">{balance} OG</span>
               {shorten(address || "")}
-              {chainId !== 16600 && (
+              {![16600, 16601, 16602].includes(chainId || 0) && (
                 <span className="text-red-400 ml-1">⚠ Wrong Network</span>
               )}
             </div>
@@ -343,7 +343,7 @@ export default function Dashboard() {
                     {[
                       { label: "Connected Wallet", value: shorten(address || "0x0"), accent: true },
                       { label: "Balance", value: `${balance} OG` },
-                      { label: "Network", value: chainId === 16600 ? "0G Galileo Testnet" : `Chain ${chainId}`, online: chainId === 16600 },
+                      { label: "Network", value: [16600, 16601, 16602].includes(chainId || 0) ? "0G Galileo Testnet" : `Chain ${chainId}`, online: [16600, 16601, 16602].includes(chainId || 0) },
                       { label: "Compute Model", value: "DeepSeek-V3 (0G Compute)" },
                     ].map((item, i) => (
                       <div key={item.label} className={`flex items-center justify-between py-2.5 ${i > 0 ? "border-t border-white/10" : ""}`}>
