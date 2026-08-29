@@ -42,6 +42,16 @@ export interface AgentDecision {
   model: string;
   computeResult: ComputeResult;
   storageResult: StorageResult;
+  teeProof: {
+    attestationHash: string;
+    verified: boolean;
+    modelId: string;
+  };
+  onChainProof?: {
+    txHash: string;
+    blockNumber: number;
+    contractAddress: string;
+  };
   status: "proposed" | "executed" | "rejected";
 }
 
@@ -165,7 +175,7 @@ export async function executeAgent(
     { agentId: "aegis-alpha", decisionId }
   );
 
-  // Step 3: Build the decision
+  // Step 3: Build the decision with TEE proof
   const decision: AgentDecision = {
     id: decisionId,
     timestamp: new Date().toISOString(),
@@ -176,6 +186,11 @@ export async function executeAgent(
     model: computeResult.model,
     computeResult,
     storageResult,
+    teeProof: {
+      attestationHash: computeResult.teeProof.attestationHash,
+      verified: computeResult.teeProof.verified,
+      modelId: computeResult.teeProof.modelId,
+    },
     status: "proposed",
   };
 

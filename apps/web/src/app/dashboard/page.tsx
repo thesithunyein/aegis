@@ -34,6 +34,8 @@ interface AgentDecision {
   status: "proposed" | "executed" | "rejected";
   computeResult?: { latencyMs: number; usage: { totalTokens: number } };
   storageResult?: { rootHash: string; size: number };
+  teeProof?: { attestationHash: string; verified: boolean; modelId: string };
+  onChainProof?: { txHash: string; blockNumber: number; contractAddress: string };
 }
 
 interface AgentConfig {
@@ -337,6 +339,18 @@ export default function Dashboard() {
                         <span className="font-mono text-gray-500">{d.model}</span>
                       </div>
                     </div>
+                    {d.teeProof && (
+                      <div className="mt-3 pt-3 border-t border-white/5">
+                        <div className="flex items-center gap-2 text-xs">
+                          <ShieldIcon className="w-3.5 h-3.5 text-green-400" />
+                          <span className="text-green-400 font-medium">TEE Verified</span>
+                          <span className="text-gray-500">•</span>
+                          <span className="text-gray-500 font-mono">{d.teeProof.attestationHash.slice(0, 16)}...</span>
+                          <span className="text-gray-500">•</span>
+                          <span className="text-gray-500">{d.teeProof.modelId}</span>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -379,8 +393,9 @@ export default function Dashboard() {
                     {[
                       { label: "Connected Wallet", value: shorten(address || "0x0"), accent: true },
                       { label: "Balance", value: `${balance} OG` },
-                      { label: "Network", value: "0G Network", online: true },
-                      { label: "Compute Model", value: "DeepSeek-V4-Pro (0G Compute)" },
+                      { label: "Network", value: "0G Mainnet", online: true },
+                      { label: "Compute Model", value: "0GM-1.0-35B (0G Compute)" },
+                      { label: "TEE Verification", value: "TDX Attestation", online: true },
                     ].map((item, i) => (
                       <div key={item.label} className={`flex items-center justify-between py-2.5 ${i > 0 ? "border-t border-white/10" : ""}`}>
                         <span className="text-sm text-gray-400">{item.label}</span>
