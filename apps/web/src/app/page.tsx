@@ -114,7 +114,7 @@ export default function Home() {
         <div
           className="absolute inset-0 pointer-events-none z-[1] transition-opacity duration-300"
           style={{
-            background: `radial-gradient(600px circle at ${mousePos.x}% ${mousePos.y}%, rgba(249,115,22,0.06), transparent 60%)`,
+            background: `radial-gradient(800px circle at ${mousePos.x}% ${mousePos.y}%, rgba(249,115,22,0.12), rgba(249,115,22,0.04) 40%, transparent 70%)`,
           }}
         />
 
