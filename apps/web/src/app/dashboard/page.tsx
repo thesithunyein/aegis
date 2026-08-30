@@ -382,7 +382,7 @@ export default function Dashboard() {
 
           {activeTab === "settings" && (
             <motion.div key="settings" initial="hidden" animate="visible" variants={fadeUp}>
-              <div className="max-w-2xl">
+              <div className="max-w-2xl mx-auto">
                 <div className="card shadow-google mb-4 md:mb-5">
                   <h3 className="text-base font-semibold mb-4 text-white">Agent Configuration</h3>
                   <div className="space-y-4">
