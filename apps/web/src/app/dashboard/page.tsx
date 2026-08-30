@@ -54,6 +54,29 @@ function shorten(addr: string) {
   return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
 }
 
+function getStorageKey(walletAddress: string | undefined): string {
+  return walletAddress ? `aegis_decisions_${walletAddress.toLowerCase()}` : "aegis_decisions_guest";
+}
+
+function loadDecisions(walletAddress: string | undefined): AgentDecision[] {
+  try {
+    const key = getStorageKey(walletAddress);
+    const raw = localStorage.getItem(key);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) return parsed.slice(0, 50); // Max 50 decisions
+    }
+  } catch { /* ignore */ }
+  return [];
+}
+
+function saveDecisions(walletAddress: string | undefined, decisions: AgentDecision[]) {
+  try {
+    const key = getStorageKey(walletAddress);
+    localStorage.setItem(key, JSON.stringify(decisions.slice(0, 50)));
+  } catch { /* ignore */ }
+}
+
 export default function Dashboard() {
   const { isConnected, address, balance, chainId, connect, disconnect, isConnecting } = useWallet();
   const [activeTab, setActiveTab] = useState<"overview" | "decisions" | "settings">("overview");
@@ -63,6 +86,23 @@ export default function Dashboard() {
   const [lastRun, setLastRun] = useState<{ tokens: number; latency: number } | null>(null);
   const [livePrices, setLivePrices] = useState<Record<string, number>>({});
   const [priceSource, setPriceSource] = useState("");
+
+  // Load decisions from localStorage when wallet connects
+  useEffect(() => {
+    if (isConnected && address) {
+      const saved = loadDecisions(address);
+      setDecisions(saved);
+    } else {
+      setDecisions([]);
+    }
+  }, [isConnected, address]);
+
+  // Save decisions to localStorage when they change
+  useEffect(() => {
+    if (isConnected && address && decisions.length > 0) {
+      saveDecisions(address, decisions);
+    }
+  }, [decisions, isConnected, address]);
 
   // Fetch live prices on mount and every 60s
   useEffect(() => {
