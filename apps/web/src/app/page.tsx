@@ -67,7 +67,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-black" onMouseMove={handleMouseMove}>
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-lg border-b border-white/10">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -94,8 +94,16 @@ export default function Home() {
         </div>
       </nav>
 
+      {/* Global mouse glow */}
+      <div
+        className="fixed inset-0 pointer-events-none z-[999] transition-opacity duration-200"
+        style={{
+          background: `radial-gradient(800px circle at ${mousePos.x}% ${mousePos.y}%, rgba(249,115,22,0.10), rgba(249,115,22,0.03) 40%, transparent 70%)`,
+        }}
+      />
+
       {/* Hero Section */}
-      <section ref={heroRef} onMouseMove={handleMouseMove} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16 bg-black">
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16 bg-black">
         {/* Video Background */}
         <motion.video
           autoPlay
@@ -110,13 +118,7 @@ export default function Home() {
         </motion.video>
         <div className="video-overlay" />
 
-        {/* Mouse-follow glow */}
-        <div
-          className="absolute inset-0 pointer-events-none z-[1] transition-opacity duration-300"
-          style={{
-            background: `radial-gradient(800px circle at ${mousePos.x}% ${mousePos.y}%, rgba(249,115,22,0.12), rgba(249,115,22,0.04) 40%, transparent 70%)`,
-          }}
-        />
+
 
 
 
