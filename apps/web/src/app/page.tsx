@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useCallback } from "react";
 import {
   ShieldIcon,
   BrainIcon,
@@ -50,12 +50,21 @@ const scaleIn = {
 
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
   const videoOpacity = useTransform(scrollYProgress, [0, 0.5], [0.85, 0.5]);
   const textY = useTransform(scrollYProgress, [0, 1], [0, 30]);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePos({
+      x: ((e.clientX - rect.left) / rect.width) * 100,
+      y: ((e.clientY - rect.top) / rect.height) * 100,
+    });
+  }, []);
 
   return (
     <div className="min-h-screen bg-black">
@@ -86,7 +95,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16 bg-black">
+      <section ref={heroRef} onMouseMove={handleMouseMove} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16 bg-black">
         {/* Video Background */}
         <motion.video
           autoPlay
@@ -100,6 +109,14 @@ export default function Home() {
           <source src="/bg-video.mp4" type="video/mp4" />
         </motion.video>
         <div className="video-overlay" />
+
+        {/* Mouse-follow glow */}
+        <div
+          className="absolute inset-0 pointer-events-none z-[1] transition-opacity duration-300"
+          style={{
+            background: `radial-gradient(600px circle at ${mousePos.x}% ${mousePos.y}%, rgba(249,115,22,0.06), transparent 60%)`,
+          }}
+        />
 
 
 
@@ -415,7 +432,7 @@ export default function Home() {
               <motion.div
                 key={item.step}
                 variants={scaleIn}
-                className="bg-neutral-900 border border-neutral-800 p-6 group hover:border-neutral-700 transition-all duration-200"
+                className="bg-neutral-900 border border-neutral-800 p-6 group hover:border-neutral-700 transition-all duration-200 card-lift"
               >
                 <div className="flex items-center gap-3 mb-6">
                   <span className="text-sm font-bold font-mono text-gray-600 group-hover:text-orange-400 transition-colors">
@@ -563,7 +580,7 @@ export default function Home() {
               <motion.div
                 key={stat.label}
                 variants={fadeUp}
-                className="bg-neutral-900 border border-neutral-800 p-6 text-center"
+                className="bg-neutral-900 border border-neutral-800 p-6 text-center card-lift"
               >
                 <stat.icon className="w-4 h-4 text-gray-600 mx-auto mb-3" />
                 <div className="text-2xl md:text-3xl font-bold font-mono mb-1 text-white">
