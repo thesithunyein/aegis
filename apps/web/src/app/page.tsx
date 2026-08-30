@@ -70,7 +70,7 @@ export default function Home() {
     <div className="min-h-screen bg-black" onMouseMove={handleMouseMove}>
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-lg border-b border-white/10">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2.5 group">
             <img src="/logos/aegis-logo.png" alt="Aegis" className="h-7 w-7 rounded-lg" />
             <span className="text-base font-semibold text-white">
@@ -88,7 +88,7 @@ export default function Home() {
               Built on 0G
             </a>
           </div>
-          <a href="/dashboard" className="btn-primary text-sm">
+          <a href="/dashboard" className="btn-primary text-xs md:text-sm px-4 md:px-6">
             Launch App
           </a>
         </div>
@@ -210,14 +210,14 @@ export default function Home() {
       </section>
 
       {/* The Problem */}
-      <section className="py-24 px-6 bg-black">
+      <section className="py-16 md:py-24 px-4 md:px-6 bg-black">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
             variants={stagger}
-            className="text-center mb-16"
+            className="text-center mb-10 md:mb-16"
           >
             <motion.span
               variants={fadeUp}
@@ -227,7 +227,7 @@ export default function Home() {
             </motion.span>
             <motion.h2
               variants={fadeUp}
-              className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-white"
+              className="text-2xl md:text-4xl font-bold tracking-tight mb-4 text-white"
             >
               AI Agents Are Managing Real Money.
               <br />
@@ -246,7 +246,7 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
             variants={stagger}
-            className="grid md:grid-cols-3 gap-6 mb-16"
+            className="grid md:grid-cols-3 gap-4 md:gap-6 mb-10 md:mb-16"
           >
             {[
               {
@@ -297,14 +297,14 @@ export default function Home() {
       </section>
 
       {/* The Solution */}
-      <section className="py-24 px-6 bg-black">
+      <section className="py-16 md:py-24 px-4 md:px-6 bg-black">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
             variants={stagger}
-            className="text-center mb-16"
+            className="text-center mb-10 md:mb-16"
           >
             <motion.span
               variants={fadeUp}
@@ -314,7 +314,7 @@ export default function Home() {
             </motion.span>
             <motion.h2
               variants={fadeUp}
-              className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-white"
+              className="text-2xl md:text-4xl font-bold tracking-tight mb-4 text-white"
             >
               Risk Rules Enforced Onchain.
               <br />
@@ -333,7 +333,7 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
             variants={stagger}
-            className="grid md:grid-cols-3 gap-6"
+            className="grid md:grid-cols-3 gap-4 md:gap-6"
           >
             {[
               {
@@ -369,7 +369,7 @@ export default function Home() {
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" className="py-24 px-6 bg-black">
+      <section id="how-it-works" className="py-16 md:py-24 px-4 md:px-6 bg-black">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"
@@ -464,7 +464,7 @@ export default function Home() {
       </section>
 
       {/* Features */}
-      <section id="features" className="py-24 px-6 bg-black">
+      <section id="features" className="py-16 md:py-24 px-4 md:px-6 bg-black">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"
@@ -564,7 +564,7 @@ export default function Home() {
       </section>
 
       {/* Stats */}
-      <section className="py-20 px-6 bg-black">
+      <section className="py-12 md:py-20 px-4 md:px-6 bg-black">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"
@@ -599,7 +599,7 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="py-28 px-6 bg-black relative overflow-hidden">
+      <section className="py-16 md:py-28 px-4 md:px-6 bg-black relative overflow-hidden">
         <div className="absolute inset-0 opacity-10" style={{
           backgroundImage: "radial-gradient(circle, #f97316 1px, transparent 1px)",
           backgroundSize: "24px 24px"
@@ -635,7 +635,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-6 border-t border-neutral-800 bg-black">
+      <footer className="py-8 px-4 md:px-6 border-t border-neutral-800 bg-black">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
             <img src="/logos/aegis-logo.png" alt="Aegis" className="h-6 w-6 rounded-md" />

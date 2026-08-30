@@ -182,22 +182,27 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-black">
       <nav className="sticky top-0 z-50 bg-black/80 backdrop-blur-lg border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 h-14 flex items-center justify-between">
+          <div className="flex items-center gap-2 md:gap-3">
             <img src="/logos/aegis-logo.png" alt="Aegis" className="h-6 w-6 rounded-md" />
             <span className="text-sm font-semibold text-white">Aegis</span>
-            <span className="text-xs text-gray-600 font-mono">/</span>
-            <span className="text-xs text-gray-500 font-mono">Dashboard</span>
+            <span className="hidden sm:inline text-xs text-gray-600 font-mono">/</span>
+            <span className="hidden sm:inline text-xs text-gray-500 font-mono">Dashboard</span>
           </div>
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-2 text-xs text-green-400 bg-green-500/10 px-3 py-1.5 rounded-full">
+          <div className="flex items-center gap-2 md:gap-4">
+            <span className="hidden sm:flex items-center gap-2 text-xs text-green-400 bg-green-500/10 px-3 py-1.5 rounded-full">
               <span className="status-dot status-online" />
               Agent Ready
             </span>
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-xs font-mono text-gray-400">
+            <span className="sm:hidden flex items-center gap-1.5 text-xs text-green-400 bg-green-500/10 px-2 py-1.5 rounded-full">
+              <span className="status-dot status-online" />
+            </span>
+            <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-xs font-mono text-gray-400">
               <span className="text-white">{balance} OG</span>
               {shorten(address || "")}
-
+            </div>
+            <div className="flex md:hidden items-center gap-1.5 px-2 py-1.5 bg-white/5 border border-white/10 rounded-full text-xs font-mono text-gray-400">
+              <span className="text-white">{balance}</span>
             </div>
             <button onClick={disconnect} className="text-xs text-gray-500 hover:text-white transition-colors">
               Disconnect
@@ -206,8 +211,8 @@ export default function Dashboard() {
         </div>
       </nav>
 
-      <div className="max-w-7xl mx-auto px-6 py-6">
-        <div className="flex items-center gap-0 mb-6 border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-6">
+        <div className="flex items-center gap-0 mb-4 md:mb-6 border-b border-white/10 overflow-x-auto scrollbar-hide">
           {([
             { id: "overview" as const, label: "Overview", icon: ChartIcon },
             { id: "decisions" as const, label: "Decisions", icon: BrainIcon },
@@ -216,7 +221,7 @@ export default function Dashboard() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-all ${
+              className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-3 text-xs md:text-sm font-medium border-b-2 transition-all whitespace-nowrap ${
                 activeTab === tab.id ? "tab-active" : "tab-inactive"
               }`}
             >
@@ -229,8 +234,8 @@ export default function Dashboard() {
         <AnimatePresence mode="wait">
           {activeTab === "overview" && (
             <motion.div key="overview" initial="hidden" animate="visible" variants={fadeUp}>
-              <div className="card shadow-google mb-5">
-                <div className="flex items-start justify-between mb-5">
+              <div className="card shadow-google mb-4 md:mb-5">
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-5">
                   <div>
                     <h2 className="text-lg font-bold mb-0.5 text-white">Aegis</h2>
                     <p className="text-sm text-gray-400">
@@ -241,7 +246,7 @@ export default function Dashboard() {
                   <button
                     onClick={runAgent}
                     disabled={isRunning}
-                    className="btn-primary text-sm px-5 py-2.5 disabled:opacity-50"
+                    className="btn-primary text-sm px-5 py-2.5 disabled:opacity-50 w-full sm:w-auto"
                   >
                     {isRunning ? (
                       <><span className="animate-spin inline-block">⟳</span> Analyzing...</>
@@ -250,7 +255,7 @@ export default function Dashboard() {
                     )}
                   </button>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 gap-3 md:gap-4">
                   {[
                     { label: "Decisions", value: totalDecisions.toString(), icon: BrainIcon },
                     { label: "Confidence", value: totalDecisions > 0 ? `${successRate}%` : "—", icon: CheckIcon },
@@ -274,7 +279,7 @@ export default function Dashboard() {
 
 
               {Object.keys(livePrices).length > 0 && (
-                <div className="card shadow-google mb-5">
+                <div className="card shadow-google mb-4 md:mb-5">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
                       <h3 className="text-sm font-semibold text-white">Live Market Prices</h3>
@@ -283,7 +288,7 @@ export default function Dashboard() {
                     </div>
                     <span className="text-xs text-gray-500">Updated {new Date().toLocaleTimeString()}</span>
                   </div>
-                  <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+                  <div className="grid grid-cols-3 gap-2 md:gap-3">
                     {Object.entries(livePrices).map(([token, price]) => (
                       <div key={token} className="bg-white/5 rounded-xl p-3">
                         <div className="text-xs text-gray-400 mb-1">{token}</div>
@@ -344,15 +349,14 @@ export default function Dashboard() {
                         <span className="proof-badge"><CheckIcon className="w-3 h-3" /> Verified</span>
                       </div>
                     </div>
-                    <div className="bg-orange-500/5 border border-orange-500/20 rounded-xl p-4 mb-3">
+                    <div className="bg-orange-500/5 border border-orange-500/20 rounded-xl p-3 md:p-4 mb-3">
                       <div className="flex items-center gap-2 mb-2">
                         <BrainIcon className="w-3.5 h-3.5 text-orange-400" />
                         <span className="text-xs font-medium text-orange-400 uppercase tracking-wider">Agent Reasoning</span>
                       </div>
                       <p className="text-sm text-gray-300 leading-relaxed">{d.reasoning}</p>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4 text-xs text-gray-400">
+                    </div>                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <div className="flex flex-wrap items-center gap-3 md:gap-4 text-xs text-gray-400">
                         <span className="flex items-center gap-1.5"><DatabaseIcon className="w-3.5 h-3.5" /> 0G Storage {d.storageResult && <span className="text-green-400">✓</span>}</span>
                         <span className="flex items-center gap-1.5"><ZapIcon className="w-3.5 h-3.5" /> 0G Compute {d.computeResult && <span className="text-green-400">{d.computeResult.latencyMs}ms</span>}</span>
                         <span className="font-mono text-gray-500">{d.model}</span>
@@ -379,7 +383,7 @@ export default function Dashboard() {
           {activeTab === "settings" && (
             <motion.div key="settings" initial="hidden" animate="visible" variants={fadeUp}>
               <div className="max-w-2xl">
-                <div className="card shadow-google mb-5">
+                <div className="card shadow-google mb-4 md:mb-5">
                   <h3 className="text-base font-semibold mb-4 text-white">Agent Configuration</h3>
                   <div className="space-y-4">
                     <div>
@@ -419,14 +423,14 @@ export default function Dashboard() {
                       { label: "DecisionLog", value: "0xcC1E...b262", link: "https://chainscan-galileo.0g.ai/address/0xcC1Ef2948269d702c719E6BA1A55D25b3c05b262" },
                       { label: "AegisVault", value: "0x13Bb...4D60", link: "https://chainscan-galileo.0g.ai/address/0x13Bb32402BCFfDb486c675f943Be7b07BBa54D60" },
                     ].map((item, i) => (
-                      <div key={item.label} className={`flex items-center justify-between py-2.5 ${i > 0 ? "border-t border-white/10" : ""}`}>
+                      <div key={item.label} className={`flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-0 py-2.5 ${i > 0 ? "border-t border-white/10" : ""}`}>
                         <span className="text-sm text-gray-400">{item.label}</span>
                         {item.online ? (
                           <span className="flex items-center gap-2 text-sm text-white"><span className="status-dot status-online" />{item.value}</span>
                         ) : (item.link ? (
-                          <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-sm font-mono text-orange-400 hover:text-orange-300 underline underline-offset-2">{item.value}</a>
+                          <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-xs sm:text-sm font-mono text-orange-400 hover:text-orange-300 underline underline-offset-2 break-all">{item.value}</a>
                         ) : (
-                          <span className={`text-sm font-mono ${item.accent ? "text-orange-400" : "text-white"}`}>{item.value}</span>
+                          <span className={`text-sm font-mono ${item.accent ? "text-orange-400" : "text-white"} break-all`}>{item.value}</span>
                         ))}
                       </div>
                     ))}

@@ -427,3 +427,34 @@ button, a, input, select {
   animation: pulse-dot 2s ease-in-out infinite;
 }
 
+/* Hide scrollbar for tabs */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Mobile touch improvements */
+@media (max-width: 768px) {
+  .card {
+    padding: 16px;
+  }
+  .btn-primary {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+  .btn-secondary {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+}
+
+/* Safe area for notched phones */
+@supports (padding: env(safe-area-inset-bottom)) {
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
