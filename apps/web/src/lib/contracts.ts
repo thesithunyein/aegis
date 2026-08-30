@@ -6,18 +6,17 @@
  */
 
 export const ZERO_G_CHAIN = {
-  chainId: 16600,
-  name: "0G Mainnet",
-  rpcUrl: "https://evmrpc.0g.ai",
+  chainId: 16602,
+  name: "0G Galileo Testnet",
+  rpcUrl: "https://evmrpc-testnet.0g.ai",
   explorerUrl: "https://chainscan-galileo.0g.ai",
 };
 
 export const CONTRACTS = {
-  // Deployed contract addresses — update after deployment
-  agentID: process.env.NEXT_PUBLIC_AGENT_ID_ADDRESS || "",
-  decisionLog: process.env.NEXT_PUBLIC_DECISION_LOG_ADDRESS || "",
-  agentRegistry: process.env.NEXT_PUBLIC_AGENT_REGISTRY_ADDRESS || "",
-  aegisVault: process.env.NEXT_PUBLIC_AEGIS_VAULT_ADDRESS || "",
+  agentID: "0x423B8701Da3a251a3A3fc2d241b71e8d05744C91",
+  decisionLog: "0xcC1Ef2948269d702c719E6BA1A55D25b3c05b262",
+  agentRegistry: "0xEC4EfbE18915ED9BB78E928Dd637134c1456B7E3",
+  aegisVault: "0x13Bb32402BCFfDb486c675f943Be7b07BBa54D60",
 };
 
 // Minimal ABI for reading decision data on-chain

@@ -9,7 +9,7 @@ import { getRealPortfolio } from "./wallet-balance";
 
 export interface MarketData {
   prices: Record<string, number>;
-  yields: Record<string, number>;
+  yields?: Record<string, number>;
   positions: Array<{
     token: string;
     amount: number;
@@ -32,14 +32,8 @@ const TOKEN_IDS: Record<string, string> = {
   // OG not on CoinGecko yet — priced at $3.50 estimate in wallet-balance.ts
 };
 
-const DEFI_YIELDS: Record<string, number> = {
-  "ETH-staking": 3.8,
-  "USDC-lending": 5.2,
-  "AAVE-supply": 4.1,
-  "UNI-LP": 12.5,
-  "BTC-wrapping": 2.1,
-  "LINK-staking": 4.5,
-};
+// DeFi yields would be fetched from on-chain protocols in production
+// For now, empty — the AI makes decisions based on real market prices only
 
 
 
@@ -109,7 +103,7 @@ export async function getMarketData(walletAddress?: string): Promise<MarketData>
 
   return {
     prices,
-    yields: DEFI_YIELDS,
+    yields: {},
     positions,
     lastUpdated: new Date().toISOString(),
     source: walletAddress ? "CoinGecko (live) + 0G Chain (real balance)" : "CoinGecko (live)",

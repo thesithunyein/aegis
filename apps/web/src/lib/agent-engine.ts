@@ -21,7 +21,7 @@ export interface StrategyConfig {
 
 export interface MarketData {
   prices: Record<string, number>;
-  yields: Record<string, number>;
+  yields?: Record<string, number>;
   positions: Array<{
     token: string;
     amount: number;
@@ -91,9 +91,11 @@ function getAnalysisPrompt(marketData: MarketData): string {
     .map(([token, price]) => `${token}: $${price.toLocaleString()}`)
     .join("\n");
 
-  const yieldStr = Object.entries(marketData.yields)
-    .map(([token, apy]) => `${token}: ${apy}% APY`)
-    .join("\n");
+  const yieldStr = marketData.yields
+    ? Object.entries(marketData.yields)
+        .map(([token, apy]) => `${token}: ${apy}% APY`)
+        .join("\n")
+    : "DeFi yield data not available";
 
   const positionStr = (marketData.positions || [])
     .map(
