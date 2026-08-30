@@ -21,6 +21,7 @@ Thank you for your interest in contributing to Aegis! This document provides gui
 - Node.js 18+
 - Foundry (for smart contracts)
 - npm or yarn
+- MetaMask wallet (for testing)
 
 ### Smart Contracts
 
@@ -47,6 +48,8 @@ npm run dev
 - Follow existing patterns in the codebase
 - Use meaningful variable and function names
 - Add JSDoc comments for complex functions
+- Use Tailwind CSS for styling
+- Use Framer Motion for animations
 
 ### Solidity
 
@@ -54,6 +57,7 @@ npm run dev
 - Use NatSpec comments for all public functions
 - Keep functions focused and small
 - Write tests for all new functionality
+- Use OpenZeppelin contracts when possible
 
 ## Pull Request Guidelines
 
@@ -62,6 +66,7 @@ npm run dev
 - **Include tests** — Add or update tests for your changes
 - **Update documentation** — Update README if needed
 - **No breaking changes** — Discuss in an issue first
+- **Follow existing patterns** — Match the codebase style
 
 ## Reporting Bugs
 
@@ -71,6 +76,7 @@ npm run dev
    - Steps to reproduce
    - Expected vs actual behavior
    - Screenshots if applicable
+   - Environment details (OS, browser, Node version)
 
 ## Feature Requests
 
@@ -79,6 +85,11 @@ npm run dev
    - Clear description of the feature
    - Use case / why it's needed
    - Any implementation ideas
+   - Mockups or examples if applicable
+
+## Security
+
+If you discover a security vulnerability, please see [SECURITY.md](SECURITY.md) for reporting instructions.
 
 ## License
 

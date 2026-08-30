@@ -6,6 +6,12 @@ If you discover a security vulnerability within Aegis, please send an email to s
 
 **Please do NOT report security vulnerabilities through public GitHub issues.**
 
+## Response Timeline
+
+- **Acknowledgment**: Within 24 hours
+- **Initial assessment**: Within 48 hours
+- **Fix deployment**: Within 7 days for critical vulnerabilities
+
 ## Scope
 
 This security policy applies to:
@@ -32,12 +38,20 @@ All AI inference is executed within a Trusted Execution Environment (TEE) via 0G
 
 Every agent decision is logged on-chain via the DecisionLog contract, providing an immutable record of all actions.
 
+### Access Control
+
+- Only the vault owner can configure agent parameters
+- Only the registered agent can propose actions
+- Only the owner can approve and execute proposed actions
+- All state changes are validated by the smart contract
+
 ## Known Limitations
 
 - Smart contracts are deployed on 0G Galileo Testnet (Chain ID 16602)
 - TEE attestation is verified by 0G Compute infrastructure
 - Agent decisions are recommendations — execution requires user confirmation
 - The system does not hold or manage user funds directly
+- Market data is sourced from CoinGecko (not on-chain oracles)
 
 ## Best Practices
 
@@ -45,6 +59,14 @@ Every agent decision is logged on-chain via the DecisionLog contract, providing 
 2. **Review Risk Rules** — Ensure your vault's risk parameters match your intended limits
 3. **Monitor On-Chain Activity** — Use the DecisionLog contract to audit agent actions
 4. **Use a Dedicated Wallet** — Consider using a separate wallet for AI-managed positions
+5. **Keep Software Updated** — Use the latest version of MetaMask and browsers
+
+## Audit Status
+
+- Internal review completed
+- Smart contracts use OpenZeppelin libraries
+- All public functions have access control
+- Tests cover core functionality (8/8 passing)
 
 ## Updates
 
