@@ -29,7 +29,7 @@ const TOKEN_IDS: Record<string, string> = {
   AAVE: "aave",
   UNI: "uniswap",
   LINK: "chainlink",
-  OG: "0g-ai", // 0G native token
+  // OG not on CoinGecko yet — priced at $3.50 estimate in wallet-balance.ts
 };
 
 const DEFI_YIELDS: Record<string, number> = {

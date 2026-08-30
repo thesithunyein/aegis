@@ -95,12 +95,14 @@ function getAnalysisPrompt(marketData: MarketData): string {
     .map(([token, apy]) => `${token}: ${apy}% APY`)
     .join("\n");
 
-  const positionStr = marketData.positions
+  const positionStr = (marketData.positions || [])
     .map(
       (p) =>
-        `${p.token} on ${p.protocol}: ${p.amount} tokens ($${p.value.toLocaleString()})`
+        `${p.token} on ${p.protocol}: ${p.amount} tokens ($${(p.value || 0).toLocaleString()})`
     )
     .join("\n");
+
+  const totalValue = (marketData.positions || []).reduce((sum, p) => sum + (p.value || 0), 0);
 
   return `Current Market Data:
 ${priceStr}
@@ -109,9 +111,9 @@ DeFi Yields:
 ${yieldStr}
 
 Current Positions:
-${positionStr}
+${positionStr || "No positions found"}
 
-Total Portfolio Value: $${marketData.positions.reduce((sum, p) => sum + p.value, 0).toLocaleString()}
+Total Portfolio Value: $${totalValue.toLocaleString()}
 
 Analyze this portfolio and propose the optimal next action. Consider:
 1. Are there yield opportunities being missed?

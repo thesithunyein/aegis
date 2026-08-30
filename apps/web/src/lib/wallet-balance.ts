@@ -78,16 +78,17 @@ export async function getRealPortfolio(address: string, prices: Record<string, n
 }>> {
   const balance = await getNativeBalance(address);
   const ogAmount = parseFloat(balance.nativeBalance);
-  const ogPrice = prices["OG"] || prices["ETH"] || 3.5; // Fallback to ETH price if OG not listed
+  // OG not on CoinGecko yet — use a reasonable estimate
+  const ogPrice = prices["OG"] || 3.5;
   
   // The user's real portfolio is their OG balance
-  const positions = [];
+  const positions: Array<{ token: string; amount: number; value: number; protocol: string }> = [];
   
   if (ogAmount > 0) {
     positions.push({
       token: "OG",
-      amount: ogAmount,
-      value: ogAmount * ogPrice,
+      amount: Math.round(ogAmount * 10000) / 10000,
+      value: Math.round(ogAmount * ogPrice * 100) / 100,
       protocol: "0G Chain (Native)",
     });
   }
