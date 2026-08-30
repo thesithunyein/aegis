@@ -132,7 +132,7 @@ export default function Home() {
           <motion.div variants={fadeUp} className="mb-6">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full text-xs font-medium text-white">
               <span className="status-dot status-online" />
-              Live on 0G Testnet
+              Live on 0G
             </span>
           </motion.div>
 
@@ -574,10 +574,10 @@ export default function Home() {
             className="grid grid-cols-2 md:grid-cols-4 gap-6"
           >
             {[
-              { label: "0G Compute", value: "Real", suffix: "", icon: BrainIcon },
-              { label: "TEE Verified", value: "Each", suffix: "", icon: ShieldIcon },
+              { label: "Inference", value: "TEE", suffix: "", icon: BrainIcon },
+              { label: "Identity", value: "ERC-7857", suffix: "", icon: ShieldIcon },
               { label: "Contracts", value: "4", suffix: "", icon: ZapIcon },
-              { label: "On-Chain", value: "Yes", suffix: "", icon: ZapIcon },
+              { label: "Settlement", value: "On-Chain", suffix: "", icon: ZapIcon },
             ].map((stat) => (
               <motion.div
                 key={stat.label}
@@ -616,14 +616,14 @@ export default function Home() {
             variants={fadeUp}
             className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-white"
           >
-            Start Building Your Agent
+            Verifiable AI Finance
           </motion.h2>
           <motion.p
             variants={fadeUp}
             className="text-gray-400 mb-10 max-w-md mx-auto text-base"
           >
-            Connect your wallet, configure your strategy, and let Aegis manage
-            your DeFi portfolio with verifiable AI.
+            Connect your wallet, set your rules, and let Aegis manage
+            your portfolio with cryptographically verifiable decisions.
           </motion.p>
           <motion.div variants={fadeUp}>
             <a href="/dashboard" className="inline-flex items-center gap-2 px-10 py-3.5 bg-gradient-to-r from-orange-500 to-red-500 text-white text-base font-semibold rounded-full hover:from-orange-600 hover:to-red-600 transition-all shadow-lg shadow-orange-500/25">
@@ -642,14 +642,14 @@ export default function Home() {
             <span className="text-sm font-medium text-white">Aegis</span>
           </div>
           <div className="flex items-center gap-6 text-sm text-gray-500">
-            <a href="#" className="hover:text-white transition-colors">
-              Documentation
-            </a>
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="https://github.com/thesithunyein/aegis" className="hover:text-white transition-colors">
               GitHub
             </a>
-            <a href="#" className="hover:text-white transition-colors">
-              Twitter
+            <a href="/dashboard" className="hover:text-white transition-colors">
+              Dashboard
+            </a>
+            <a href="https://docs.0g.ai" className="hover:text-white transition-colors">
+              0G Docs
             </a>
           </div>
           <div className="flex items-center gap-2 text-xs text-gray-500">

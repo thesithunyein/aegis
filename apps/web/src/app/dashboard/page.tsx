@@ -11,10 +11,7 @@ import {
   ChartIcon,
   ClockIcon,
   CheckIcon,
-  PlusIcon,
-  HistoryIcon,
   SettingsIcon,
-  ChevronIcon,
   WalletIcon,
 } from "@/components/icons";
 
@@ -169,7 +166,7 @@ export default function Dashboard() {
             <div className="mt-5 pt-4 border-t border-white/10">
               <div className="flex items-center gap-2 text-xs text-gray-500">
                 <ShieldIcon className="w-3.5 h-3.5" />
-                <span>0G Galileo Testnet (Chain ID: 16602)</span>
+                <span>0G Network</span>
               </div>
             </div>
           </div>
@@ -235,7 +232,7 @@ export default function Dashboard() {
               <div className="card shadow-google mb-5">
                 <div className="flex items-start justify-between mb-5">
                   <div>
-                    <h2 className="text-lg font-bold mb-0.5 text-white">Aegis Alpha</h2>
+                    <h2 className="text-lg font-bold mb-0.5 text-white">Aegis</h2>
                     <p className="text-sm text-gray-400">
                       {config.strategy.charAt(0).toUpperCase() + config.strategy.slice(1)} Yield • {config.riskTolerance.charAt(0).toUpperCase() + config.riskTolerance.slice(1)} Risk
                     </p>
@@ -274,28 +271,7 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-4 mb-5">
-                {[
-                  { title: "New Agent", desc: "Deploy another agent", icon: PlusIcon, color: "orange" },
-                  { title: "View History", desc: "All past decisions", icon: HistoryIcon, color: "purple" },
-                  { title: "Verify Proof", desc: "Check TEE attestation", icon: ShieldIcon, color: "green" },
-                ].map((item) => (
-                  <button key={item.title} className="card flex items-center gap-3 hover:shadow-google-lg transition-all group text-left">
-                    <div className={`w-10 h-10 flex items-center justify-center rounded-xl ${
-                      item.color === "green" ? "bg-green-500/10 text-green-400"
-                        : item.color === "purple" ? "bg-purple-500/10 text-purple-400"
-                        : "bg-orange-500/10 text-orange-400"
-                    }`}>
-                      <item.icon className="w-5 h-5" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="text-sm font-semibold text-white">{item.title}</div>
-                      <div className="text-xs text-gray-400">{item.desc}</div>
-                    </div>
-                    <ChevronIcon className="w-4 h-4 text-gray-300" />
-                  </button>
-                ))}
-              </div>
+
 
               {Object.keys(livePrices).length > 0 && (
                 <div className="card shadow-google mb-5">
@@ -436,7 +412,7 @@ export default function Dashboard() {
                     {[
                       { label: "Connected Wallet", value: shorten(address || "0x0"), accent: true },
                       { label: "Balance", value: `${balance} OG` },
-                      { label: "Network", value: "0G Galileo Testnet", online: true },
+                      { label: "Network", value: "0G Network", online: true },
                       { label: "Compute Model", value: "0GM-1.0-35B (0G Compute)" },
                       { label: "TEE Verification", value: "TDX Attestation", online: true },
                       { label: "Agent ID Contract", value: "0x423B...4C91", link: "https://chainscan-galileo.0g.ai/address/0x423B8701Da3a251a3A3fc2d241b71e8d05744C91" },
